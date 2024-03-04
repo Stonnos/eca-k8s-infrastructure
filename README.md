@@ -48,16 +48,16 @@
 
    install-docker-images.bat (для Windows)
    
-   install-docker-images.sh (для Linux)
+   sh install-docker-images.sh (для Linux)
 
 2. Для запуска проекта необходимо выполнить скрипт:
 
    install.bat (для Windows)
    
-   install.sh (для Linux)
+   sh install.sh (для Linux)
 
 3. Для удаления проекта необходимо выполнить скрипт:
 
    uninstall.bat (для Windows)
    
-   uninstall.sh (для Linux)
+   sh uninstall.sh (для Linux)
