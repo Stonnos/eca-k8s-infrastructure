@@ -47,14 +47,17 @@
 1. Установить необходимые вспомогательные docker образы с помощью скрипта:
 
    install-docker-images.bat (для Windows)
+   
    install-docker-images.sh (для Linux)
 
 2. Для запуска проекта необходимо выполнить скрипт:
 
    install.bat (для Windows)
+   
    install.sh (для Linux)
 
 3. Для удаления проекта необходимо выполнить скрипт:
 
    uninstall.bat (для Windows)
+   
    uninstall.sh (для Linux)
