@@ -1,0 +1,34 @@
+appName: s3-minio-storage
+
+image:
+  repository: minio/minio
+  tag: RELEASE.2024-02-26T09-33-48Z
+
+container:
+  port: 9000
+  adminConsolePort: 9100
+
+service:
+  type: LoadBalancer
+  port: 9000
+  adminConsolePort: 9100
+
+persistenceVolume:
+  name: pv-s3-minio-storage
+  capacity:
+    storage: 5Gi
+  storageClassName: standard
+  hostPath: "/run/desktop/mnt/host/c/users/public/eca-service-k8s-volumes/minio"
+
+persistenceVolumeClaim:
+  name: pvc-s3-minio-storage
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: standard
+
+minio:
+  secrets:
+    name: secrets
+  usernameSecretKey: MINIO_USERNAME
+  passwordSecretKey: MINIO_PASSWORD

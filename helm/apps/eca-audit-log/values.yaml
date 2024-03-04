@@ -1,0 +1,17 @@
+appName: eca-audit-log
+
+image:
+  repository: eca-audit-log
+
+env:
+  OPENAPI_BASEPATH: "/eca-audit-log"
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres-db:5433/audit_log"
+  SPRING_JPA_HIBERNATE_DDLAUTO: "validate"
+  LOCK_ENABLED: "true"
+  EUREKA_INSTANCE_PREFERIPADDRESS: "true"
+  EUREKA_CLIENT_REGISTERWITHEUREKA: "true"
+  EUREKA_CLIENT_FETCHREGISTRY: "true"
+
+secrets:
+  SPRING_DATASOURCE_USERNAME: POSTGRES_USER
+  SPRING_DATASOURCE_PASSWORD: POSTGRES_PASSWORD

@@ -1,0 +1,9 @@
+appName: eca-web
+
+image:
+  repository: eca-web
+
+env:
+  EUREKA_INSTANCE_PREFERIPADDRESS: "true"
+  EUREKA_CLIENT_REGISTERWITHEUREKA: "true"
+  EUREKA_CLIENT_FETCHREGISTRY: "true"

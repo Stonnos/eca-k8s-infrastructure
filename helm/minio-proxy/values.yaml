@@ -1,0 +1,14 @@
+appName: minio-proxy
+
+image:
+  repository: minio-proxy
+
+container:
+  port: 8098
+
+service:
+  type: LoadBalancer
+  port: 8098
+
+minioProxy:
+  minioUrl: "http://s3-minio-storage:9000"

@@ -1,0 +1,50 @@
+appName: rabbitmq
+
+image:
+  repository: rabbitmq
+  tag: 3.8.14-management
+
+container:
+  amqpPort: 5672
+  httpPort: 15672
+  metricsPort: 15692
+
+service:
+  type: LoadBalancer
+  amqpPort: 5672
+  httpPort: 15672
+  metricsPort: 15692
+
+persistenceVolume:
+  name: pv-rabbitmq
+  capacity:
+    storage: 5Gi
+  storageClassName: standard
+  hostPath: "/run/desktop/mnt/host/c/users/public/eca-service-k8s-volumes/rabbitmq"
+
+persistenceVolumeClaim:
+  name: pvc-rabbitmq
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: standard
+
+rabbitmq:
+  timezone: "Asia/Novosibirsk"
+  rabbitMqConf: |
+    [
+     {rabbit,
+      [
+       %% The default "guest" user is only permitted to access the server
+       %% via a loopback interface (e.g. localhost).
+       %% {loopback_users, [<<"guest">>]},
+       %%
+       %% Uncomment the following line if you want to allow access to the
+       %% guest user from anywhere on the network.
+       {loopback_users, []},
+       {default_vhost,       "/"},
+       {default_user,        "guest"},
+       {default_pass,        "guest"},
+       {default_permissions, [".*", ".*", ".*"]}
+      ]}
+    ].

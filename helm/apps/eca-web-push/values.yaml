@@ -1,0 +1,21 @@
+appName: eca-web-push
+
+image:
+  repository: eca-web-push
+
+env:
+  OPENAPI_BASEPATH: "/eca-web-push"
+  AUDIT_ENABLED: "true"
+  AUDIT_ASYNCEVENTS: "true"
+  AUDIT_THREADPOOLSIZE: "3"
+  REDELIVERY_ENABLED: "true"
+  LOCK_ENABLED: "true"
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres-db:5433/eca_web_push"
+  SPRING_JPA_HIBERNATE_DDLAUTO: "validate"
+  EUREKA_INSTANCE_PREFERIPADDRESS: "true"
+  EUREKA_CLIENT_REGISTERWITHEUREKA: "true"
+  EUREKA_CLIENT_FETCHREGISTRY: "true"
+
+secrets:
+  SPRING_DATASOURCE_USERNAME: POSTGRES_USER
+  SPRING_DATASOURCE_PASSWORD: POSTGRES_PASSWORD

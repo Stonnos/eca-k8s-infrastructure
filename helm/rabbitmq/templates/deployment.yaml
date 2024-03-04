@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}
+  labels:
+    app: {{ .Values.appName }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}
+    spec:
+      hostname: {{ .Values.appName }}
+      containers:
+        - name: {{ .Values.appName }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: amqp
+              containerPort: {{ .Values.container.amqpPort }}
+            - name: http
+              containerPort: {{ .Values.container.httpPort }}
+            - name: metrics
+              containerPort: {{ .Values.container.metricsPort }}
+          env:
+            - name: TZ
+              value: {{ .Values.rabbitmq.timezone }}
+          volumeMounts:
+            - name: {{ .Values.persistenceVolumeClaim.name }}
+              mountPath: /var/lib/rabbitmq
+            - name: rabbitmq-init
+              mountPath: /etc/rabbitmq/rabbitmq.config
+      volumes:
+        - name: {{ .Values.persistenceVolumeClaim.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistenceVolumeClaim.name }}
+        - name: rabbitmq-init
+          configMap:
+            name: {{ .Values.appName }}

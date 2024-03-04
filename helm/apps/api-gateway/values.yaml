@@ -1,0 +1,18 @@
+appName: api-gateway
+
+image:
+  repository: api-gateway
+
+container:
+  port: 8080
+  actuatorPort: 8030
+
+service:
+  type: LoadBalancer
+  port: 8080
+  actuatorPort: 8030
+
+env:
+  EUREKA_INSTANCE_PREFERIPADDRESS: "true"
+  EUREKA_CLIENT_REGISTERWITHEUREKA: "true"
+  EUREKA_CLIENT_FETCHREGISTRY: "true"

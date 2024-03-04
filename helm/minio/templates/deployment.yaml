@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}
+  labels:
+    app: {{ .Values.appName }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}
+    spec:
+      containers:
+        - name: {{ .Values.appName }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: IfNotPresent
+          args:
+            - server
+            - --console-address
+            - :{{ .Values.container.adminConsolePort }}
+            - /data
+          ports:
+            - containerPort: {{ .Values.container.port }}
+              name: http
+            - containerPort: {{ .Values.container.adminConsolePort }}
+              name: admin-console
+          env:
+            - name: MINIO_ROOT_USER
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.minio.usernameSecretKey }}
+                  name: {{ .Values.minio.secrets.name }}
+            - name: MINIO_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.minio.passwordSecretKey }}
+                  name: {{ .Values.minio.secrets.name }}
+            - name: MINIO_PROMETHEUS_AUTH_TYPE
+              value: "public"
+          volumeMounts:
+            - name: {{ .Values.persistenceVolumeClaim.name }}
+              mountPath: /data
+      volumes:
+        - name: {{ .Values.persistenceVolumeClaim.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistenceVolumeClaim.name }}

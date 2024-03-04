@@ -1,0 +1,13 @@
+appName: discovery-server
+
+image:
+  repository: discovery-server
+
+container:
+  port: 8761
+  actuatorPort: 8761
+
+service:
+  type: LoadBalancer
+  port: 8761
+  actuatorPort: 8761

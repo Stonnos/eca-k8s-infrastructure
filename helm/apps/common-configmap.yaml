@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: common-config
+data:
+  SPRING_PROFILES_ACTIVE: "docker"
+  MINIO_URL: "http://s3-minio-storage:9000"
+  MINIO_PROXYURL: "http://localhost:8098/object-storage"
+  MINIO_BUCKETNAME: "eca-service"
+  AUTHSERVER_URL: "http://eca-oauth:8080"
+  SERVICE_FEIGN_OAUTH_TOKEN_URL: "http://eca-oauth:8080"
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://discovery-server:8761/eureka"
+  TZ: "Asia/Novosibirsk"

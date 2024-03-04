@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}
+  labels:
+    app: {{ .Values.appName }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}
+    spec:
+      containers:
+        - name: {{ .Values.appName }}
+          imagePullPolicy: IfNotPresent
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.container.port }}
+            - name: actuator
+              containerPort: {{ .Values.container.actuatorPort }}
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.container.actuatorPort }}
+            initialDelaySeconds: 120
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.container.actuatorPort }}
+            initialDelaySeconds: 120
+            periodSeconds: 30
+          envFrom:
+            - configMapRef:
+                name: common-config
+            - configMapRef:
+                name: {{ .Values.appName }}
+          env:
+            {{- range $envVariable, $secretKey := .Values.secrets }}
+            - name: {{ $envVariable }}
+              valueFrom:
+                secretKeyRef:
+                  key: {{ $secretKey }}
+                  name: secrets
+            {{- end }}

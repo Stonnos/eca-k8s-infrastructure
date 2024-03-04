@@ -1,0 +1,16 @@
+appName: app-name
+
+image:
+  repository: app-name
+  tag: latest
+
+replicaCount: 1
+
+container:
+  port: 8080
+  actuatorPort: 8080
+
+service:
+  type: ClusterIP
+  port: 8080
+  actuatorPort: 8080
