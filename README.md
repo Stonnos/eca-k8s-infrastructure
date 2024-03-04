@@ -1,5 +1,5 @@
 Развертывание eca-service в Kubernetes
-========================================
+======================================
 
 Описание
 ----------------------------------------
@@ -9,6 +9,7 @@
 ----------------------------------------
 * Docker
 * Docker compose
+* Helm
 
 Настройка kubernetes для Windows 10
 ----------------------------------------
@@ -18,26 +19,42 @@
 
 2. Установить Kubernetes dashboard с помощью команды:
 
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.6.0/aio/deploy/recommended.yaml
+   kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.6.0/aio/deploy/recommended.yaml
 
 3. Открыть канал для доступа к Kubernetes через localhost с помощью команды:
 
-kubectl proxy
+   kubectl proxy
 
 4. Kubernetes dashboard доступна по адресу http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
 
 5. Сгенерировать access token для доступа к Kubernetes dashboard (https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md)
 
-kubectl apply -f k8s/auth/auth-config.yaml
+   kubectl apply -f k8s/auth/auth-config.yaml
 
-kubectl -n kubernetes-dashboard create token admin-user
+   kubectl -n kubernetes-dashboard create token admin-user
 
 6. Установить helm с помощью утилиты chocolatey (см. https://docs.chocolatey.org/en-us/choco/setup). В PowerShell.exe от имени
 администратора выполнить следующие команды:
 
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+   Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
-choco install Kubernetes-Helm
+   choco install Kubernetes-Helm
 
 
-docker build -t minio-create-bucket-job minio/mc
+Запуск eca-service в Kubernetes
+----------------------------------------
+
+1. Установить необходимые вспомогательные docker образы с помощью скрипта:
+
+   install-docker-images.bat (для Windows)
+   install-docker-images.sh (для Linux)
+
+2. Для запуска проекта необходимо выполнить скрипт:
+
+   install.bat (для Windows)
+   install.sh (для Linux)
+
+3. Для удаления проекта необходимо выполнить скрипт:
+
+   uninstall.bat (для Windows)
+   uninstall.sh (для Linux)
