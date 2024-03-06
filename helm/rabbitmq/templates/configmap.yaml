@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ .Values.appName }}
 data:
-{{- if .Values.rabbitmq.rabbitMqConf }}
+{{- if (.Files.Get "config/rabbitmq.conf") }}
   rabbitmq.conf: |
-{{ .Values.rabbitmq.rabbitMqConf | indent 4 }}
-{{- end }}
+{{ (.Files.Get "config/rabbitmq.conf") | indent 4 }}
+{{- end}}

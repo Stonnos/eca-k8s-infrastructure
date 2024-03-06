@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ .Values.appName }}
 data:
-{{- if .Values.postgres.initDbScriptsSql }}
+{{- if (.Files.Get "config/init.sql") }}
   init.sql: |
-{{ .Values.postgres.initDbScriptsSql | indent 4 }}
-{{- end }}
+{{ (.Files.Get "config/init.sql") | indent 4 }}
+{{- end}}
