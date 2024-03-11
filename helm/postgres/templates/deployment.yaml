@@ -20,7 +20,7 @@ spec:
           ports:
             - containerPort: {{ .Values.container.port }}
           env:
-            - name: PG_DATA
+            - name: PGDATA
               value: "/var/lib/postgresql/data/pgdata"
             - name: POSTGRES_USER
               valueFrom:
