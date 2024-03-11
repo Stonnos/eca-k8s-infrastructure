@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.appName }}
+data:
+{{- if (.Files.Get "config/alertmanager.yml") }}
+  alertmanager.yml: |
+{{ (.Files.Get "config/alertmanager.yml") | indent 4 }}
+{{- end}}
+{{- if (.Files.Get "config/bot-token.txt") }}
+  bot-token.txt: |
+{{ (.Files.Get "config/bot-token.txt") | indent 4 }}
+{{- end}}
+{{- if (.Files.Get "config/email-auth-password.txt") }}
+  email-auth-password.txt: |
+{{ (.Files.Get "config/email-auth-password.txt") | indent 4 }}
+{{- end}}

@@ -1,0 +1,20 @@
+appName: postgres-exporter
+
+image:
+  repository: wrouesnel/postgres_exporter
+  tag: v0.8.0
+
+container:
+  port: 9187
+
+service:
+  type: LoadBalancer
+  port: 9187
+
+postgres:
+  timezone: "Asia/Novosibirsk"
+  dataSourceUri: "postgres-db:5433?sslmode=disable"
+  secrets:
+    name: secrets
+  usernameSecretKey: POSTGRES_USER
+  passwordSecretKey: POSTGRES_PASSWORD

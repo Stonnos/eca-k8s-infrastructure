@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.appName }}
+data:
+{{- if (.Files.Get "config/prometheus.yml") }}
+  prometheus.yml: |
+{{ (.Files.Get "config/prometheus.yml") | indent 4 }}
+{{- end}}
+{{- if (.Files.Get "config/alert-rules.yml") }}
+  alert-rules.yml: |
+{{ (.Files.Get "config/alert-rules.yml") | indent 4 }}
+{{- end}}

@@ -1,0 +1,16 @@
+appName: alertmanager
+
+image:
+  repository: prom/alertmanager
+  tag: v0.27.0
+
+container:
+  port: 9093
+
+service:
+  type: LoadBalancer
+  port: 9093
+
+alertmanager:
+  webExternalUrl: http://localhost:9093
+  timezone: "Asia/Novosibirsk"

@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}
+  labels:
+    app: {{ .Values.appName }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}
+    spec:
+      containers:
+        - name: {{ .Values.appName }}
+          imagePullPolicy: IfNotPresent
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          ## Used to allow volume mount to host path
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 0
+          args:
+            - --config.file=/etc/prometheus/prometheus.yml
+            - --storage.tsdb.path=/prometheus
+            - --web.console.libraries=/usr/share/prometheus/console_libraries
+            - --web.console.templates=/usr/share/prometheus/consoles
+            - --web.external-url={{ .Values.prometheus.webExternalUrl }}
+          ports:
+            - containerPort: {{ .Values.container.port }}
+          env:
+            - name: TZ
+              value: {{ .Values.prometheus.timezone }}
+          volumeMounts:
+            - name: {{ .Values.persistenceVolumeClaim.name }}
+              mountPath: /prometheus
+            - name: prometheus-config
+              mountPath: /etc/prometheus/prometheus.yml
+              subPath: prometheus.yml
+            - name: alert-rules
+              mountPath: /etc/prometheus/alert-rules.yml
+              subPath: alert-rules.yml
+      volumes:
+        - name: {{ .Values.persistenceVolumeClaim.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistenceVolumeClaim.name }}
+        - name: prometheus-config
+          configMap:
+            name: {{ .Values.appName }}
+            items:
+              - key: prometheus.yml
+                path: prometheus.yml
+        - name: alert-rules
+          configMap:
+            name: {{ .Values.appName }}
+            items:
+              - key: alert-rules.yml
+                path: alert-rules.yml

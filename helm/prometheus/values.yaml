@@ -1,0 +1,30 @@
+appName: prometheus
+
+image:
+  repository: prom/prometheus
+  tag: v2.28.0
+
+container:
+  port: 9090
+
+service:
+  type: LoadBalancer
+  port: 9090
+
+persistenceVolume:
+  name: pv-prometheus
+  capacity:
+    storage: 5Gi
+  storageClassName: standard
+  hostPath: "/run/desktop/mnt/host/c/users/public/eca-service-k8s-volumes/prometheus"
+
+persistenceVolumeClaim:
+  name: pvc-prometheus
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: standard
+
+prometheus:
+  webExternalUrl: http://localhost:9090
+  timezone: "Asia/Novosibirsk"

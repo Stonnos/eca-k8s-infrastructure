@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}
+  labels:
+    app: {{ .Values.appName }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}
+    spec:
+      containers:
+        - name: {{ .Values.appName }}
+          imagePullPolicy: IfNotPresent
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          args:
+            - --config.file=/etc/alertmanager/alertmanager.yml
+            - --web.external-url={{ .Values.alertmanager.webExternalUrl }}
+          ports:
+            - containerPort: {{ .Values.container.port }}
+          env:
+            - name: TZ
+              value: {{ .Values.alertmanager.timezone }}
+          volumeMounts:
+            - name: alertmanager-config
+              mountPath: /etc/alertmanager/alertmanager.yml
+              subPath: alertmanager.yml
+            - name: telegram-token
+              mountPath: /etc/alertmanager/bot-token.txt
+              subPath: bot-token.txt
+            - name: email-auth-password
+              mountPath: /etc/alertmanager/email-auth-password.txt
+              subPath: email-auth-password.txt
+      volumes:
+        - name: alertmanager-config
+          configMap:
+            name: {{ .Values.appName }}
+            items:
+              - key: alertmanager.yml
+                path: alertmanager.yml
+        - name: telegram-token
+          configMap:
+            name: {{ .Values.appName }}
+            items:
+              - key: bot-token.txt
+                path: bot-token.txt
+        - name: email-auth-password
+          configMap:
+            name: {{ .Values.appName }}
+            items:
+              - key: email-auth-password.txt
+                path: email-auth-password.txt

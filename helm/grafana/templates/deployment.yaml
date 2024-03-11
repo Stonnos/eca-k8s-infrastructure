@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}
+  labels:
+    app: {{ .Values.appName }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}
+    spec:
+      containers:
+        - name: {{ .Values.appName }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: IfNotPresent
+          ## Used to allow volume mount to host path
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 0
+          ports:
+            - containerPort: {{ .Values.container.port }}
+          env:
+            - name: GF_SECURITY_ADMIN_USER
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.grafana.usernameSecretKey }}
+                  name: {{ .Values.grafana.secrets.name }}
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.grafana.passwordSecretKey }}
+                  name: {{ .Values.grafana.secrets.name }}
+            - name: GF_USERS_ALLOW_SIGN_UP
+              value: "false"
+            - name: TZ
+              value: {{ .Values.grafana.timezone }}
+          volumeMounts:
+            - name: {{ .Values.persistenceVolumeClaim.name }}
+              mountPath: /var/lib/grafana
+      volumes:
+        - name: {{ .Values.persistenceVolumeClaim.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistenceVolumeClaim.name }}

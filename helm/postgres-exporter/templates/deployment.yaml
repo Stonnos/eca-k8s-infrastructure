@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}
+  labels:
+    app: {{ .Values.appName }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}
+    spec:
+      containers:
+        - name: {{ .Values.appName }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: {{ .Values.container.port }}
+          env:
+            - name: DATA_SOURCE_URI
+              value: {{ .Values.postgres.dataSourceUri }}
+            - name: DATA_SOURCE_USER
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.postgres.usernameSecretKey }}
+                  name: {{ .Values.postgres.secrets.name }}
+            - name: DATA_SOURCE_PASS
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.postgres.passwordSecretKey }}
+                  name: {{ .Values.postgres.secrets.name }}
+            - name: TZ
+              value: {{ .Values.postgres.timezone }}

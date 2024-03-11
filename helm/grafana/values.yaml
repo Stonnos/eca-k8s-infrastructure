@@ -1,0 +1,33 @@
+appName: grafana
+
+image:
+  repository: eca-service-grafana
+  tag: latest
+
+container:
+  port: 3000
+
+service:
+  type: LoadBalancer
+  port: 3000
+
+persistenceVolume:
+  name: pv-grafana
+  capacity:
+    storage: 5Gi
+  storageClassName: standard
+  hostPath: "/run/desktop/mnt/host/c/users/public/eca-service-k8s-volumes/grafana"
+
+persistenceVolumeClaim:
+  name: pvc-grafana
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: standard
+
+grafana:
+  timezone: "Asia/Novosibirsk"
+  secrets:
+    name: secrets
+  usernameSecretKey: GRAFANA_USER
+  passwordSecretKey: GRAFANA_PASSWORD
