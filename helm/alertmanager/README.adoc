@@ -1,0 +1,81 @@
+= Развертывание alertmanager в Kubernetes
+:toc: macro
+
+== Введение
+
+Модуль реализует адаптер для получения уведомлений от alert manager с последующей их отправкой в Telegram канал.
+
+
+== Настройка alertmanager
+
+1. В файле config/alertmanager.yml указать настройки для отправки уведомлений:
+
+[source,yml]
+----
+global:
+
+route:
+  receiver: 'eca-admin'
+  group_wait: 30s
+  group_interval: 1m
+  repeat_interval: 3h
+
+receivers:
+  - name: 'eca-admin'
+    email_configs:
+        # email адрес получателя уведомлений
+      - to: 'roman.batygin@mail.ru'
+        # SMTP хост для отправки почты
+        smarthost: 'smtp.gmail.com:25'
+        # email адрес отправителя уведомлений
+        from: 'rbatsw@gmail.com'
+        # пользователь для отправки почты
+        auth_username: 'rbatsw@gmail.com'
+        # Ссылка на файл с паролем пользователя для отправки почты
+        auth_password_file: '/etc/alertmanager/email-auth-password.txt'
+    telegram_configs:
+        # Ссылка на файл с паролем бота
+      - bot_token_file: '/etc/alertmanager/bot-token.txt'
+        # url telegram
+        api_url: 'https://api.telegram.org'
+        # идентфикатор чата для получения уведомлений
+        chat_id: 1480287278
+
+----
+
+== Запуск в Kubernetes
+----------------------------------------
+
+Для запуска alertmanager в Kubernetes необходимо из текущей директории выполнить команду:
+
+  helm upgrade --install alertmanager alertmanager
+
+== Описание переменных values для helm chart
+
+|===
+|Переменная|Значение по умолчанию|Описание
+|*appName*
+|alertmanager
+|Название приложения (пода)
+|*image.repository*
+|prom/alertmanager
+|Образ alertmanager
+|*image.tag*
+|v0.27.0
+|Версия образа
+|*container.port*
+|9093
+|Порт контейнера
+|*service.type*
+|LoadBalancer
+|Тип службы
+|*service.port*
+|9093
+|Порт службы
+|alertmanager.webExternalUrl
+|http://localhost:9093
+|Внешний url для административной консоли alertmanager
+|alertmanager.timezone
+|Asia/Novosibirsk
+|Таймзона контейнера
+|===
