@@ -18,7 +18,7 @@ data:
   TZ: "Asia/Novosibirsk"
 ----
 
-* Создать *Secret* secrets.yaml, если используются конфидициальные данные:
+* Создать *Secret* secrets.yaml, если используются конфидециальные данные:
 
 [source,yml]
 ----
