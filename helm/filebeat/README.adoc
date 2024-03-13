@@ -3,7 +3,7 @@
 
 == Настройка filebeat
 
-1. В файле config/filebeat.yml указать настройки для отправки логов:
+  1. В файле config/filebeat.yml указать настройки для отправки логов:
 
 [source,yml]
 ----
@@ -25,7 +25,7 @@ output.elasticsearch:
     - index: "filebeat-%{[agent.version]}-%{+yyyy.MM.dd}"
 ----
 
-2. Для deployment вашего сервиса для сбора логов указать аннотации:
+  2. Для deployment вашего сервиса для сбора логов указать аннотации:
 
 [source,yml]
 ----
