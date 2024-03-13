@@ -1,0 +1,32 @@
+= Развертывание minio-proxy в Kubernetes
+:toc: macro
+
+== Запуск в Kubernetes
+
+Для запуска minio-proxy в Kubernetes необходимо из текущей директории выполнить команду:
+
+  helm upgrade --install minio-proxy .
+
+== Описание переменных values для helm chart
+
+|===
+|Переменная|Значение по умолчанию|Описание
+|*appName*
+|minio-proxy
+|Название приложения (пода)
+|*image.repository*
+|minio-proxy
+|Образ minio-proxy
+|*container.port*
+|8098
+|Порт контейнера
+|*service.type*
+|LoadBalancer
+|Тип службы
+|*service.port*
+|8098
+|Порт службы
+|*minioProxy.minioUrl*
+|http://s3-minio-storage:9000
+|Url minio
+|===
