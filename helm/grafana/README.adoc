@@ -1,0 +1,40 @@
+= Развертывание grafana в Kubernetes
+:toc: macro
+
+== Введение
+
+В данном документе приведена инструкция для запуска Job создания bucket в grafana.
+
+== Запуск в Kubernetes
+
+Сначала необходимо собрать образ из корневой директории проекта:
+
+  docker build -t eca-service-grafana grafana
+
+Для запуска grafana в Kubernetes необходимо из текущей директории выполнить команду:
+
+  helm upgrade --install grafana .
+
+== Описание переменных values для helm chart
+
+|===
+|Переменная|Значение по умолчанию|Описание
+|*appName*
+|grafana
+|Название приложения (пода)
+|*image.repository*
+|grafana
+|Образ grafana
+|*grafana.secrets.name*
+|secrets
+|Название Secret
+|*grafana.usernameSecretKey*
+|GRAFANA_USERNAME
+|Ссылка на переменную пользователя в Secret
+|*grafana.passwordSecretKey*
+|GRAFANA_PASSWORD
+|Ссылка на переменную пароля в Secret
+|*grafana.timezone*
+|Asia/Novosibirsk
+|Таймзона контейнера
+|===
