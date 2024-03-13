@@ -1,0 +1,69 @@
+= Развертывание postgres в Kubernetes
+:toc: macro
+
+== Настройка postgres
+
+* В файле config/init.sql указать скрипты для инициализации БД:
+
+[source,sql]
+----
+ALTER SYSTEM SET max_connections = 500;
+create database app;
+----
+
+== Запуск в Kubernetes
+
+Для запуска postgres в Kubernetes необходимо из текущей директории выполнить команду:
+
+  helm upgrade --install postgres .
+
+== Описание переменных values для helm chart
+
+|===
+|Переменная|Значение по умолчанию|Описание
+|*appName*
+|postgres-db
+|Название приложения (пода)
+|*image.repository*
+|postgres
+|Образ postgres
+|*image.tag*
+|13.9
+|Версия образа
+|*container.port*
+|5432
+|Порт контейнера
+|*service.type*
+|LoadBalancer
+|Тип службы
+|*service.port*
+|5433
+|Порт службы
+|*postgres.timezone*
+|Asia/Novosibirsk
+|Таймзона контейнера
+|*postgres.secrets.name*
+|secrets
+|Название Secret
+|*postgres.usernameSecretKey*
+|POSTGRES_USER
+|Ссылка на переменную пользователя в Secret
+|*postgres.passwordSecretKey*
+|POSTGRES_PASSWORD
+|Ссылка на переменную пароля в Secret
+|*persistenceVolume.name*
+|pv-postgresql
+|Название persistence volume для postgres
+|*persistenceVolume.capacity.storage*
+|5Gi
+|Емкость persistence volume
+|*persistenceVolume.hostPath*
+|/run/desktop/mnt/host/c/users/public/eca-service-k8s-volumes/postgres
+|Ссылка на папку в файловой системе узла для хранения данных БД
+|*persistenceVolumeClaim.name*
+|pvc-postgresql
+|Название persistence volume claim для postgres
+|*persistenceVolumeClaim.resources.requests.storage*
+|5Gi
+|Емкость persistence volume claim
+|===
