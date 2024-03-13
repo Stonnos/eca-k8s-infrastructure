@@ -1,7 +1,7 @@
 = Развертывание filebeat в Kubernetes
 :toc: macro
 
-== Настройка alertmanager
+== Настройка filebeat
 
 1. В файле config/filebeat.yml указать настройки для отправки логов:
 
@@ -68,7 +68,7 @@ spec:
 |Название приложения (пода)
 |*image.repository*
 |elastic/filebeat
-|Образ alertmanager
+|Образ filebeat
 |*image.tag*
 |7.6.1
 |Версия образа
