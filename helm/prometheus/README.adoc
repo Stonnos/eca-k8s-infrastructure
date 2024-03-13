@@ -1,0 +1,166 @@
+= Развертывание prometheus в Kubernetes
+:toc: macro
+
+== Настройка prometheus
+
+В файле config/prometheus.yml указать настройки prometheus:
+
+[source,yml]
+----
+global:
+  scrape_interval: 30s
+  evaluation_interval: 30s
+
+rule_files:
+    # Файл конфига с правилами для уведомлений мониторинга
+  - 'alert-rules.yml'
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        # Url alertmanager для отправки уведомлений мониторинга в telegram/email
+      - targets: ['alertmanager:9093']
+
+scrape_configs:
+  - job_name: 'postgres-exporter'
+    static_configs:
+      - targets: ['postgres-exporter:9187']
+  - job_name: 'rabbitmq'
+    static_configs:
+      - targets: ['rabbitmq:15692']
+  - job_name: 's3-minio-storage'
+    metrics_path: '/minio/prometheus/metrics'
+    static_configs:
+      - targets: ['s3-minio-storage:9000']
+  - job_name: 'discovery-server'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['discovery-server:8761']
+  - job_name: 'service-discovery'
+    http_sd_configs:
+      - url: 'http://discovery-server:8761/api/prometheus/sd-configs'
+        refresh_interval: 30s
+    relabel_configs:
+      - source_labels: [__meta_discovery_app_name]
+        target_label: application
+      - source_labels: [__meta_discovery_app_instance_name]
+        target_label: instance
+      - source_labels: [__meta_discovery_app_instance_metrics_path]
+        target_label: __metrics_path__
+----
+
+В файле config/alert-rules.yml указать настройки правил для срабатывания уведомлений:
+
+[source,yml]
+----
+groups:
+  - name: eca-admin
+    rules:
+      - alert: ServiceDown
+        expr: up == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: 'Service {{ $labels.instance }} is unavailable.'
+          description: '{{ $labels.instance }} has been down for more than 2 minutes.'
+      - alert: PostgreSQLDown
+        expr: pg_up != 1
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: 'PostgreSQL {{ $labels.instance }} is unavailable.'
+          description: '{{ $labels.instance }} has been down for more than 2 minutes.'
+      - alert: HeapUsageTooMuch
+        expr: sum(jvm_memory_used_bytes{area="heap"}) by (instance) / sum(jvm_memory_max_bytes{area="heap"}) by (instance) * 100 > 70
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "JVM Instance {{ $labels.instance }} memory usage > 70%"
+          description: "{{ $labels.instance }} has been in status [heap usage > 70%] for more than 1 minute. Current usage ({{ humanize $value }}%)"
+      - alert: HeapUsageTooMuch
+        expr: sum(jvm_memory_used_bytes{area="heap"}) by (instance) / sum(jvm_memory_max_bytes{area="heap"}) by (instance) * 100 > 80
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "JVM Instance {{ $labels.instance }} memory usage > 80%"
+          description: "{{ $labels.instance }} has been in status [heap usage > 80%] for more than 1 minute. Current usage ({{ humanize $value }}%)"
+      - alert: ProcessCpuUsageTooMuch
+        expr: process_cpu_usage * 100 > 70
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "JVM Instance {{ $labels.instance }} cpu usage > 70%"
+          description: "{{ $labels.instance }} has been in status [cpu usage > 70%] for more than 1 minute. CPU current usage ({{ humanize $value }}%)"
+      - alert: ProcessCpuUsageTooMuch
+        expr: process_cpu_usage * 100 > 80
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "JVM Instance {{ $labels.instance }} cpu usage > 80%"
+          description: "{{ $labels.instance }} has been in status [cpu usage > 80%] for more than 1 minute. CPU current usage ({{ humanize $value }}%)"
+      - alert: RabbitMQUnackedMessagesTooMuch
+        expr: sum(rabbitmq_queue_messages_unacked) by (instance, rabbitmq_cluster) > 100
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Rabbit MQ instance {{ $labels.instance }} unacked messages > 100"
+          description: "{{ $labels.instance }} has been in status [unacked messages > 100] for more than 1 minute. Current unacked messages ({{ humanize $value }})"
+----
+
+== Запуск в Kubernetes
+
+Для запуска prometheus в Kubernetes необходимо из текущей директории выполнить команду:
+
+  helm upgrade --install prometheus .
+
+== Описание переменных values для helm chart
+
+|===
+|Переменная|Значение по умолчанию|Описание
+|*appName*
+|prometheus
+|Название приложения (пода)
+|*image.repository*
+|prom/prometheus
+|Образ prometheus
+|*image.tag*
+|v2.28.0
+|Версия образа
+|*container.port*
+|9090
+|Порт контейнера
+|*service.type*
+|LoadBalancer
+|Тип службы
+|*service.port*
+|9090
+|Порт службы
+|*prometheus.webExternalUrl*
+|http://localhost:9090
+|Внешний url для административной консоли prometheus
+|*prometheus.timezone*
+|Asia/Novosibirsk
+|Таймзона контейнера
+|*persistenceVolume.name*
+|pv-prometheus
+|Название persistence volume для prometheus
+|*persistenceVolume.capacity.storage*
+|5Gi
+|Емкость persistence volume
+|*persistenceVolume.hostPath*
+|/run/desktop/mnt/host/c/users/public/eca-service-k8s-volumes/prometheus
+|Ссылка на папку в файловой системе узла для хранения данных mq
+|*persistenceVolumeClaim.name*
+|pvc-prometheus
+|Название persistence volume claim для prometheus
+|*persistenceVolumeClaim.resources.requests.storage*
+|5Gi
+|Емкость persistence volume claim
+|===
