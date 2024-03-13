@@ -3,7 +3,7 @@
 
 == Настройка alertmanager
 
-  1. В файле config/alertmanager.yml указать настройки для отправки уведомлений:
+* В файле config/alertmanager.yml указать настройки для отправки уведомлений:
 
 [source,yml]
 ----
@@ -37,9 +37,9 @@ receivers:
         chat_id: 1480287278
 ----
 
-  2. В файле config/bot-token.txt указать пароль для telegram бота.
+* В файле config/bot-token.txt указать пароль для telegram бота.
 
-  3. В файле config/email-auth-password.txt указать пароль пользователя для отправки почты.
+* В файле config/email-auth-password.txt указать пароль пользователя для отправки почты.
 
 == Запуск в Kubernetes
 
