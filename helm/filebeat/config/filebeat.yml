@@ -1,0 +1,14 @@
+filebeat.autodiscover:
+  providers:
+    - type: kubernetes
+      node: ${NODE_NAME}
+      hints.enabled: true
+      # Disabled fetch logs for all containers
+      hints.default_config.enabled: false
+      parsers:
+        - container: ~
+
+output.elasticsearch:
+  hosts: ['${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}']
+  indices:
+    - index: "filebeat-%{[agent.version]}-%{+yyyy.MM.dd}"

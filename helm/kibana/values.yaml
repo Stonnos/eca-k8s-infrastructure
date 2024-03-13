@@ -1,0 +1,15 @@
+appName: kibana
+
+image:
+  repository: elastic/kibana
+  tag: 7.4.2
+
+container:
+  port: 5601
+
+service:
+  type: LoadBalancer
+  port: 5601
+
+kibana:
+  timezone: "Asia/Novosibirsk"

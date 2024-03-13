@@ -10,4 +10,5 @@ data:
   AUTHSERVER_URL: "http://eca-oauth:8080"
   SERVICE_FEIGN_OAUTH_TOKEN_URL: "http://eca-oauth:8080"
   EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://discovery-server:8761/eureka"
+  LOGGING_MODE: "json"
   TZ: "Asia/Novosibirsk"

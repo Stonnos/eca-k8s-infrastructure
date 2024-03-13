@@ -1,0 +1,10 @@
+appName: filebeat
+
+image:
+  repository: elastic/filebeat
+  tag: 7.6.1
+
+filebeat:
+  elastic:
+    host: elasticsearch
+    port: 9200

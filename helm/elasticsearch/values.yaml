@@ -1,0 +1,29 @@
+appName: elasticsearch
+
+image:
+  repository: elastic/elasticsearch
+  tag: 7.4.2
+
+container:
+  port: 9200
+
+service:
+  type: LoadBalancer
+  port: 9200
+
+persistenceVolume:
+  name: pv-elasticsearch
+  capacity:
+    storage: 5Gi
+  storageClassName: standard
+  hostPath: "/run/desktop/mnt/host/c/users/public/eca-service-k8s-volumes/elasticsearch"
+
+persistenceVolumeClaim:
+  name: pvc-elasticsearch
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: standard
+
+elasticsearch:
+  timezone: "Asia/Novosibirsk"

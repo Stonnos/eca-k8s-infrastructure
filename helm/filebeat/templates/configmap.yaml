@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: filebeat-config
+  namespace: default
+data:
+{{- if (.Files.Get "config/filebeat.yml") }}
+  filebeat.yml: |
+{{ (.Files.Get "config/filebeat.yml") | indent 4 }}
+{{- end}}

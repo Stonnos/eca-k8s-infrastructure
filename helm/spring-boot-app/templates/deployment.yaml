@@ -13,6 +13,15 @@ spec:
     metadata:
       labels:
         app: {{ .Values.appName }}
+      annotations:
+        # Enable fetch container logs for filebeat
+        co.elastic.logs/enabled: "true"
+        # Enable json logs for filebeat
+        co.elastic.logs/json.keys_under_root: "true"
+        # Add parse log error message
+        co.elastic.logs/json.add_error_key: "true"
+        # Json logs message field
+        co.elastic.logs/json.message_key: "message"
     spec:
       containers:
         - name: {{ .Values.appName }}
