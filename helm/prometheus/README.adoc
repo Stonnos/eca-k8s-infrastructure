@@ -21,6 +21,7 @@ alerting:
         # Url alertmanager для отправки уведомлений мониторинга в telegram/email
       - targets: ['alertmanager:9093']
 
+# Перечень сервисов для забора метрик
 scrape_configs:
   - job_name: 'postgres-exporter'
     static_configs:
