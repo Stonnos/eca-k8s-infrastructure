@@ -1,0 +1,56 @@
+= Развертывание s3-minio-storage в Kubernetes
+:toc: macro
+
+== Запуск в Kubernetes
+
+Для запуска s3-minio-storage в Kubernetes необходимо из текущей директории выполнить команду:
+
+  helm upgrade --install minio .
+
+== Описание переменных values для helm chart
+
+|===
+|Переменная|Значение по умолчанию|Описание
+|*appName*
+|s3-minio-storage
+|Название приложения (пода)
+|*image.repository*
+|minio/minio
+|Образ s3-minio-storage
+|*image.tag*
+|RELEASE.2024-02-26T09-33-48Z
+|Версия образа
+|*container.port*
+|9000
+|Порт контейнера
+|*container.adminConsolePort*
+|9100
+|Порт контейнера для admin консоли
+|*service.type*
+|LoadBalancer
+|Тип службы
+|*service.port*
+|9000
+|Порт службы
+|*service.adminConsolePort*
+|9100
+|Порт службы для admin консоли
+|*minio.timezone*
+|Asia/Novosibirsk
+|Таймзона контейнера
+|*persistenceVolume.name*
+|pv-s3-minio-storage
+|Название persistence volume для s3-minio-storage
+|*persistenceVolume.capacity.storage*
+|5Gi
+|Емкость persistence volume
+|*persistenceVolume.hostPath*
+|/run/desktop/mnt/host/c/users/public/eca-service-k8s-volumes/minio
+|Ссылка на папку в файловой системе узла для хранения данных mq
+|*persistenceVolumeClaim.name*
+|pvc-s3-minio-storage
+|Название persistence volume claim для s3-minio-storage
+|*persistenceVolumeClaim.resources.requests.storage*
+|5Gi
+|Емкость persistence volume claim
+|===
