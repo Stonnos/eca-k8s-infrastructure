@@ -1,0 +1,86 @@
+= Развертывание rabbitmq в Kubernetes
+:toc: macro
+
+== Настройка rabbitmq
+
+В файле config/rabbitmq.conf указать первоначальные настройки для rabbitmq:
+
+[source,txt]
+----
+[
+ {rabbit,
+  [
+   %% The default "guest" user is only permitted to access the server
+   %% via a loopback interface (e.g. localhost).
+   %% {loopback_users, [<<"guest">>]},
+   %%
+   %% Uncomment the following line if you want to allow access to the
+   %% guest user from anywhere on the network.
+   {loopback_users, []},
+   {default_vhost,       "/"},
+   {default_user,        "guest"},
+   {default_pass,        "guest"},
+   {default_permissions, [".*", ".*", ".*"]}
+  ]}
+].
+----
+
+== Запуск в Kubernetes
+
+Для запуска rabbitmq в Kubernetes необходимо из текущей директории выполнить команду:
+
+  helm upgrade --install rabbitmq .
+
+== Описание переменных values для helm chart
+
+|===
+|Переменная|Значение по умолчанию|Описание
+|*appName*
+|rabbitmq
+|Название приложения (пода)
+|*image.repository*
+|rabbitmq
+|Образ rabbitmq
+|*image.tag*
+|3.8.14-management
+|Версия образа
+|*container.amqpPort*
+|5672
+|Порт контейнера для amqp
+|*container.httpPort*
+|15672
+|Порт контейнера для admin консоли
+|*container.metricsPort*
+|15692
+|Порт контейнера для получения метрик в формате prometheus
+|*service.type*
+|LoadBalancer
+|Тип службы
+|*service.amqpPort*
+|5672
+|Порт службы для amqp
+|*service.httpPort*
+|15672
+|Порт службы для admin консоли
+|*service.metricsPort*
+|15692
+|Порт службы для получения метрик в формате prometheus
+|*rabbitmq.timezone*
+|Asia/Novosibirsk
+|Таймзона контейнера
+|*persistenceVolume.name*
+|pv-rabbitmq
+|Название persistence volume для rabbitmq
+|*persistenceVolume.capacity.storage*
+|5Gi
+|Емкость persistence volume
+|*persistenceVolume.hostPath*
+|/run/desktop/mnt/host/c/users/public/eca-service-k8s-volumes/rabbitmq
+|Ссылка на папку в файловой системе узла для хранения данных mq
+|*persistenceVolumeClaim.name*
+|pvc-rabbitmq
+|Название persistence volume claim для rabbitmq
+|*persistenceVolumeClaim.resources.requests.storage*
+|5Gi
+|Емкость persistence volume claim
+|===
