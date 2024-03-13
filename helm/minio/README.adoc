@@ -38,6 +38,15 @@
 |*minio.timezone*
 |Asia/Novosibirsk
 |Таймзона контейнера
+|*minio.secrets.name*
+|secrets
+|Название Secret
+|*minio.usernameSecretKey*
+|MINIO_USERNAME
+|Ссылка на переменную пользователя в Secret
+|*minio.passwordSecretKey*
+|MINIO_PASSWORD
+|Ссылка на переменную пароля в Secret
 |*persistenceVolume.name*
 |pv-s3-minio-storage
 |Название persistence volume для s3-minio-storage
