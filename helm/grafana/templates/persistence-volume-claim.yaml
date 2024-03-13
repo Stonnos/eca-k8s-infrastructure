@@ -3,6 +3,7 @@ apiVersion: v1
 metadata:
   name: {{ .Values.persistenceVolumeClaim.name }}
 spec:
+  volumeName: {{ .Values.persistenceVolume.name }}
   accessModes:
     - ReadWriteMany
   storageClassName: {{ .Values.persistenceVolumeClaim.storageClassName }}
