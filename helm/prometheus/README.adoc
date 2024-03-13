@@ -157,7 +157,7 @@ groups:
 |Емкость persistence volume
 |*persistenceVolume.hostPath*
 |/run/desktop/mnt/host/c/users/public/eca-service-k8s-volumes/prometheus
-|Ссылка на папку в файловой системе узла для хранения данных mq
+|Ссылка на папку в файловой системе узла для хранения данных
 |*persistenceVolumeClaim.name*
 |pvc-prometheus
 |Название persistence volume claim для prometheus

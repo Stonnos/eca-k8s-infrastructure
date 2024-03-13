@@ -55,7 +55,7 @@
 |Емкость persistence volume
 |*persistenceVolume.hostPath*
 |/run/desktop/mnt/host/c/users/public/eca-service-k8s-volumes/minio
-|Ссылка на папку в файловой системе узла для хранения данных mq
+|Ссылка на папку в файловой системе узла для хранения данных minio
 |*persistenceVolumeClaim.name*
 |pvc-s3-minio-storage
 |Название persistence volume claim для s3-minio-storage
