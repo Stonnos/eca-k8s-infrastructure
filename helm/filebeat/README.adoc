@@ -1,0 +1,81 @@
+= Развертывание filebeat в Kubernetes
+:toc: macro
+
+== Настройка alertmanager
+
+1. В файле config/filebeat.yml указать настройки для отправки логов:
+
+[source,yml]
+----
+filebeat.autodiscover:
+  providers:
+    - type: kubernetes
+      node: ${NODE_NAME}
+      hints.enabled: true
+      # Выкл. отправку логов для всех подов
+      hints.default_config.enabled: false
+      parsers:
+        - container: ~
+
+output.elasticsearch:
+  # Хост и порт elasticsearch для хранения логов
+  hosts: ['${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}']
+  indices:
+      # Название индекса в elasticsearch
+    - index: "filebeat-%{[agent.version]}-%{+yyyy.MM.dd}"
+----
+
+2. Для deployment вашего сервиса для сбора логов указать аннотации:
+
+[source,yml]
+----
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-app
+  labels:
+    app: spring-boot-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-boot-app
+  template:
+    metadata:
+      labels:
+        app: spring-boot-app
+      annotations:
+        # Вкл. чтение логов контейнера для filebeat
+        co.elastic.logs/enabled: "true"
+        # Вкл. парсинг логов контейнера в формате json
+        co.elastic.logs/json.keys_under_root: "true"
+        # Название поля, содержащее лог в формате json
+        co.elastic.logs/json.message_key: "message"
+----
+
+== Запуск в Kubernetes
+
+Для запуска alertmanager в Kubernetes необходимо из текущей директории выполнить команду:
+
+  helm upgrade --install filebeat filebeat
+
+== Описание переменных values для helm chart
+
+|===
+|Переменная|Значение по умолчанию|Описание
+|*appName*
+|filebeat
+|Название приложения (пода)
+|*image.repository*
+|elastic/filebeat
+|Образ alertmanager
+|*image.tag*
+|7.6.1
+|Версия образа
+|*filebeat.elastic.host*
+|elasticsearch
+|Хост elasticsearch для хранения логов
+|*filebeat.elastic.port*
+|9200
+|Порт elasticsearch для хранения логов
+|===

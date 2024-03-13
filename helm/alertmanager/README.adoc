@@ -65,10 +65,10 @@ receivers:
 |*service.port*
 |9093
 |Порт службы
-|alertmanager.webExternalUrl
+|*alertmanager.webExternalUrl*
 |http://localhost:9093
 |Внешний url для административной консоли alertmanager
-|alertmanager.timezone
+|*alertmanager.timezone*
 |Asia/Novosibirsk
 |Таймзона контейнера
 |===
