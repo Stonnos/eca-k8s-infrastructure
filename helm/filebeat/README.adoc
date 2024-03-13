@@ -3,7 +3,7 @@
 
 == Настройка filebeat
 
-* В файле config/filebeat.yml указать настройки для отправки логов:
+* В файле config/filebeat.yml указать настройки для сбора логов:
 
 [source,yml]
 ----
@@ -12,20 +12,20 @@ filebeat.autodiscover:
     - type: kubernetes
       node: ${NODE_NAME}
       hints.enabled: true
-      # Выкл. отправку логов для всех подов
+      # Выкл. сбора логов для всех подов
       hints.default_config.enabled: false
       parsers:
         - container: ~
 
 output.elasticsearch:
-  # Хост и порт elasticsearch для хранения логов
+  # Хост и порт elasticsearch для сохранения логов
   hosts: ['${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}']
   indices:
       # Название индекса в elasticsearch
     - index: "filebeat-%{[agent.version]}-%{+yyyy.MM.dd}"
 ----
 
-* Для deployment вашего сервиса для сбора логов указать аннотации:
+* В deployment вашего сервиса для включения сбора логов с помощью filebeat указать аннотации (annotations):
 
 [source,yml]
 ----
