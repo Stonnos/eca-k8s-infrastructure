@@ -5,7 +5,7 @@
 
 Для запуска spring boot приложения в Kubernetes необходимо:
 
-* Создать ConfigMap common-configmap.yaml с общими настройками:
+* Создать *ConfigMap* common-configmap.yaml с общими настройками для всех сервисов:
 
 [source,yml]
 ----
@@ -18,7 +18,7 @@ data:
   TZ: "Asia/Novosibirsk"
 ----
 
-* Создать Secret secrets.yaml:
+* Создать *Secret* secrets.yaml, если используются конфидициальные данные:
 
 [source,yml]
 ----
@@ -34,11 +34,11 @@ data:
   POSTGRES_PASSWORD: cG9zdGdyZXM=
 ----
 
-* Задеплойть ConfigMap с общими настройками
+* Задеплойть *ConfigMap* с общими настройками
 
   kubectl apply -f common-configmap.yaml
 
-* Задеплоить Secret:
+* Задеплоить *Secret*:
 
   kubectl apply -f secrets.yaml
 
@@ -46,7 +46,7 @@ data:
 
   helm upgrade --install -f custom-values.yaml your-spring-boot-app spring-boot-app
 
-где custom-values.yaml файл с кастомными настройками для вашего приложения
+где *custom-values.yaml* файл с кастомными настройками для вашего приложения
 
 Пример содержимого файла custom-values.yaml:
 
@@ -98,10 +98,10 @@ secrets:
 |*service.actuatorPort*
 |8080
 |Порт actuator для службы
-|env
+|*env*
 |-
 |Перечень переменных окружения
-|secrets
+|*secrets*
 |-
 |Перечень secrets окружения
 |===
