@@ -1,0 +1,107 @@
+= Развертывание spring boot приложения в Kubernetes
+:toc: macro
+
+== Запуск в Kubernetes
+
+Для запуска spring boot приложения в Kubernetes необходимо:
+
+* Создать ConfigMap common-configmap.yaml с общими настройками:
+
+[source,yml]
+----
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: common-config
+data:
+  SPRING_PROFILES_ACTIVE: "docker"
+  TZ: "Asia/Novosibirsk"
+----
+
+* Создать Secret secrets.yaml:
+
+[source,yml]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secrets
+type: Opaque
+data:
+  # Base64 encoded user
+  POSTGRES_USER: cG9zdGdyZXM=
+  # Base64 encoded password
+  POSTGRES_PASSWORD: cG9zdGdyZXM=
+----
+
+* Задеплойть ConfigMap с общими настройками
+
+  kubectl apply -f common-configmap.yaml
+
+* Задеплоить Secret:
+
+  kubectl apply -f secrets.yaml
+
+* Для запуска spring boot приложения в Kubernetes необходимо из текущей директории выполнить команду:
+
+  helm upgrade --install -f custom-values.yaml your-spring-boot-app spring-boot-app
+
+где custom-values.yaml файл с кастомными настройками для вашего приложения
+
+Пример содержимого файла custom-values.yaml:
+
+[source,yml]
+----
+appName: app-name
+
+image:
+  repository: app-name
+
+env:
+  SPRING_DATASOURCE_JDBCURL: "jdbc:postgresql://postgres-db:5433/app"
+  SPRING_JPA_HIBERNATE_DDLAUTO: "validate"
+
+# Перечень секретов в формате переменная_окружения_сервиса: ссылка на переменную в secrets
+secrets:
+  SPRING_DATASOURCE_USERNAME: POSTGRES_USER
+  SPRING_DATASOURCE_PASSWORD: POSTGRES_PASSWORD
+----
+
+== Описание переменных values для helm chart
+
+|===
+|Переменная|Значение по умолчанию|Описание
+|*appName*
+|app-name
+|Название приложения (пода)
+|*image.repository*
+|app-name
+|Образ приложения
+|*image.tag*
+|latest
+|Версия образа
+|*replicaCount*
+|1
+|Число подов приложения
+|*container.port*
+|8080
+|Порт контейнера
+|*container.actuatorPort*
+|8080
+|Порт actuator для контейнера
+|*service.type*
+|ClusterIP
+|Тип службы
+|*service.port*
+|8080
+|Порт службы
+|*service.actuatorPort*
+|8080
+|Порт actuator для службы
+|env
+|-
+|Перечень переменных окружения
+|secrets
+|-
+|Перечень secrets окружения
+|===

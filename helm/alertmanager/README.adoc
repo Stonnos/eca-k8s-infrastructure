@@ -45,7 +45,7 @@ receivers:
 
 Для запуска alertmanager в Kubernetes необходимо из текущей директории выполнить команду:
 
-  helm upgrade --install alertmanager alertmanager
+  helm upgrade --install alertmanager .
 
 == Описание переменных values для helm chart
 

@@ -57,7 +57,7 @@ spec:
 
 Для запуска alertmanager в Kubernetes необходимо из текущей директории выполнить команду:
 
-  helm upgrade --install filebeat filebeat
+  helm upgrade --install filebeat .
 
 == Описание переменных values для helm chart
 
