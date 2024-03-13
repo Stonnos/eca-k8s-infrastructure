@@ -3,6 +3,10 @@
 
 == Запуск в Kubernetes
 
+Сначала необходимо собрать образ из корневой директории проекта:
+
+  docker build -t minio-proxy minio/nginx
+
 Для запуска minio-proxy в Kubernetes необходимо из текущей директории выполнить команду:
 
   helm upgrade --install minio-proxy .
