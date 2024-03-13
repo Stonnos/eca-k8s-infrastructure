@@ -19,8 +19,17 @@
 |grafana
 |Название приложения (пода)
 |*image.repository*
-|grafana
+|eca-service-grafana
 |Образ grafana
+|*container.port*
+|3000
+|Порт контейнера
+|*service.type*
+|LoadBalancer
+|Тип службы
+|*service.port*
+|3000
+|Порт службы
 |*grafana.secrets.name*
 |secrets
 |Название Secret
@@ -33,4 +42,19 @@
 |*grafana.timezone*
 |Asia/Novosibirsk
 |Таймзона контейнера
+|*persistenceVolume.name*
+|pv-grafana
+|Название persistence volume для grafana
+|*persistenceVolume.capacity.storage*
+|5Gi
+|Емкость persistence volume
+|*persistenceVolume.hostPath*
+|/run/desktop/mnt/host/c/users/public/eca-service-k8s-volumes/grafana
+|Ссылка на папку в файловой системе узла для хранения данных mq
+|*persistenceVolumeClaim.name*
+|pvc-grafana
+|Название persistence volume claim для grafana
+|*persistenceVolumeClaim.resources.requests.storage*
+|5Gi
+|Емкость persistence volume claim
 |===
