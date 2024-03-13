@@ -1,0 +1,51 @@
+= Развертывание postgres-exporter в Kubernetes
+:toc: macro
+
+== Введение
+
+В данном документе приведена инструкция для запуска утилиты для сбора метрик postgres в формате prometheus.
+
+== Запуск в Kubernetes
+
+Для запуска postgres-exporter в Kubernetes необходимо из текущей директории выполнить команду:
+
+  helm upgrade --install postgres-exporter .
+
+== Описание переменных values для helm chart
+
+|===
+|Переменная|Значение по умолчанию|Описание
+|*appName*
+|postgres-exporter
+|Название приложения (пода)
+|*image.repository*
+|wrouesnel/postgres_exporter
+|Образ postgres-exporter
+|*image.tag*
+|v0.8.0
+|Версия образа
+|*container.port*
+|9187
+|Порт контейнера
+|*service.type*
+|LoadBalancer
+|Тип службы
+|*service.port*
+|9187
+|Порт службы
+|*postgres.timezone*
+|Asia/Novosibirsk
+|Таймзона контейнера
+|*postgres.dataSourceUri*
+|postgres-db:5433?sslmode=disable
+|Url для подключения к postgres
+|*postgres.secrets.name*
+|secrets
+|Название Secret
+|*postgres.usernameSecretKey*
+|POSTGRES_USER
+|Ссылка на переменную пользователя в Secret
+|*postgres.passwordSecretKey*
+|POSTGRES_PASSWORD
+|Ссылка на переменную пароля в Secret
+|===
