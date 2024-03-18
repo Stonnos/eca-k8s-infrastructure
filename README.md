@@ -29,7 +29,7 @@
 
 5. Сгенерировать access token для доступа к Kubernetes dashboard (https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md)
 
-   kubectl apply -f k8s/auth/auth-config.yaml
+   kubectl apply -f auth/auth-config.yaml
 
    kubectl -n kubernetes-dashboard create token admin-user
 
