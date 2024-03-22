@@ -1,4 +1,4 @@
-ARG NGINX_VERSION
+ARG NGINX_VERSION=1.23.1-alpine
 FROM nginx:$NGINX_VERSION
 COPY nginx.conf.template /nginx.conf.template
 COPY docker-entrypoint.sh /
