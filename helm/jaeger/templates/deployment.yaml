@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}
+  labels:
+    app: {{ .Values.appName }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}
+    spec:
+      containers:
+        - name: {{ .Values.appName }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: ui
+              containerPort: {{ .Values.container.uiPort }}
+            - name: zipkin
+              containerPort: {{ .Values.container.zipkinPort }}
+          env:
+            - name: SPAN_STORAGE_TYPE
+              value: {{ .Values.jaeger.spanStorageType }}
+            - name: ES_SERVER_URLS
+              value: {{ .Values.jaeger.elasticUrl }}
+            - name: COLLECTOR_ZIPKIN_HOST_PORT
+              value: ":{{ .Values.container.zipkinPort }}"

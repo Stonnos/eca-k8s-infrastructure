@@ -1,0 +1,18 @@
+appName: jaeger
+
+image:
+  repository: jaegertracing/all-in-one
+  tag: 1.56
+
+container:
+  uiPort: 16686
+  zipkinPort: 9411
+
+service:
+  type: LoadBalancer
+  uiPort: 16686
+  zipkinPort: 9411
+
+jaeger:
+  spanStorageType: "elasticsearch"
+  elasticUrl: "http://elasticsearch:9200"

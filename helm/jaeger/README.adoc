@@ -1,0 +1,29 @@
+= Развертывание jaeger в Kubernetes
+:toc: macro
+
+== Запуск в Kubernetes
+
+Для запуска jaeger в Kubernetes необходимо из текущей директории выполнить команду:
+
+  helm upgrade --install jaeger .
+
+== Описание переменных values для helm chart
+
+|===
+|Переменная|Значение по умолчанию|Описание
+|*appName*
+|jaeger
+|Название приложения (пода)
+|*image.repository*
+|jaegertracing/all-in-one
+|Образ jaeger
+|*image.tag*
+|1.56
+|Версия образа
+|*jaeger.spanStorageType*
+|elasticsearch
+|Тип хранилища для хранения спанов
+|*jaeger.elasticUrl*
+|http://elasticsearch:9200
+|URL elasticsearch для хранения спанов
+|===
