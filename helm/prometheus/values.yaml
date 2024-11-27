@@ -2,7 +2,7 @@ appName: prometheus
 
 image:
   repository: prom/prometheus
-  tag: v2.28.0
+  tag: v2.43.0
 
 container:
   port: 9090
