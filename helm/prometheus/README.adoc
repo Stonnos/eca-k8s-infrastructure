@@ -38,16 +38,20 @@ scrape_configs:
     static_configs:
       - targets: ['discovery-server:8761']
   - job_name: 'service-discovery'
-    http_sd_configs:
-      - url: 'http://discovery-server:8761/api/prometheus/sd-configs'
+    eureka_sd_configs:
+      - server: 'http://discovery-server:8761/eureka'
         refresh_interval: 30s
     relabel_configs:
-      - source_labels: [__meta_discovery_app_name]
+      - source_labels: [__meta_eureka_app_name]
         target_label: application
-      - source_labels: [__meta_discovery_app_instance_name]
-        target_label: instance
-      - source_labels: [__meta_discovery_app_instance_metrics_path]
+      - source_labels: [__meta_eureka_app_instance_metadata_metrics_path]
         target_label: __metrics_path__
+      - source_labels: [__meta_eureka_app_instance_instance_id]
+        target_label: instance
+      - source_labels: [__meta_eureka_app_instance_ip_addr, __meta_eureka_app_instance_metadata_management_port]
+        action: replace
+        separator: ':'
+        target_label: __address__
 ----
 
 В файле config/alert-rules.yml указать настройки правил для срабатывания уведомлений:
