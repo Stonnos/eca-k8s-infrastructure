@@ -27,6 +27,7 @@ env:
   EUREKA_INSTANCE_PREFERIPADDRESS: "true"
   EUREKA_CLIENT_REGISTERWITHEUREKA: "true"
   EUREKA_CLIENT_FETCHREGISTRY: "true"
+  JAVA_OPTS: "-Xmx1g --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.math=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.sql/java.sql=ALL-UNNAMED"
 
 secrets:
   SPRING_DATASOURCE_USERNAME: POSTGRES_USER

@@ -11,3 +11,6 @@ service:
   type: LoadBalancer
   port: 8761
   actuatorPort: 8761
+
+env:
+  JAVA_OPTS: "-Xmx256m"
