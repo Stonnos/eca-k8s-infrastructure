@@ -3,20 +3,20 @@ groups:
     rules:
       - alert: ServiceDown
         expr: up == 0
-        for: 2m
+        for: 0m
         labels:
           severity: critical
         annotations:
           summary: 'Service {{ $labels.instance }} is unavailable.'
-          description: '{{ $labels.instance }} has been down for more than 2 minutes.'
+          description: '{{ $labels.instance }} has been down.'
       - alert: PostgreSQLDown
         expr: pg_up != 1
-        for: 2m
+        for: 0m
         labels:
           severity: critical
         annotations:
           summary: 'PostgreSQL {{ $labels.instance }} is unavailable.'
-          description: '{{ $labels.instance }} has been down for more than 2 minutes.'
+          description: '{{ $labels.instance }} has been down.'
       - alert: HeapUsageTooMuch
         expr: sum(jvm_memory_used_bytes{area="heap"}) by (instance) / sum(jvm_memory_max_bytes{area="heap"}) by (instance) * 100 > 70
         for: 1m

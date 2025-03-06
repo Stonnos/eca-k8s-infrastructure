@@ -58,19 +58,19 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(sum(rate(feign_Client_http_response_code_total{application=\"eca-server\",host=\"eca-audit-log\",http_status=\"200\",method=\"sendEvent\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(feign_Client_http_response_code_total{application=\"ECA-SERVER\",host=\"eca-audit-log\",http_status=\"200\",method=\"sendEvent\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
           "intervalFactor": 2,
           "legendFormat": "eca-server",
           "refId": "A"
         },
         {
-          "expr": "(sum(rate(feign_Client_http_response_code_total{application=\"eca-oauth\",host=\"eca-audit-log\",http_status=\"200\",method=\"sendEvent\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(feign_Client_http_response_code_total{application=\"ECA-OAUTH\",host=\"eca-audit-log\",http_status=\"200\",method=\"sendEvent\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
           "intervalFactor": 2,
           "legendFormat": "eca-oauth",
           "refId": "B"
         },
         {
-          "expr": "(sum(rate(feign_Client_http_response_code_total{application=\"eca-data-storage\",host=\"eca-audit-log\",http_status=\"200\",method=\"sendEvent\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(feign_Client_http_response_code_total{application=\"ECA-DATA-STORAGE\",host=\"eca-audit-log\",http_status=\"200\",method=\"sendEvent\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
           "intervalFactor": 2,
           "legendFormat": "eca-data-storage",
           "refId": "C"
@@ -161,13 +161,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(sum(rate(feign_Client_http_response_code_total{application=\"eca-server\",host=\"eca-mail\",http_status=\"200\",method=\"sendEmail\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(feign_Client_http_response_code_total{application=\"ECA-SERVER\",host=\"eca-mail\",http_status=\"200\",method=\"sendEmail\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
           "intervalFactor": 2,
           "legendFormat": "eca-server",
           "refId": "A"
         },
         {
-          "expr": "(sum(rate(feign_Client_http_response_code_total{application=\"eca-oauth\",host=\"eca-mail\",http_status=\"200\",method=\"sendEmail\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(feign_Client_http_response_code_total{application=\"ECA-OAUTH\",host=\"eca-mail\",http_status=\"200\",method=\"sendEmail\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
           "intervalFactor": 2,
           "legendFormat": "eca-oauth",
           "refId": "B"
@@ -256,32 +256,32 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(sum(rate(feign_Client_seconds_sum{application=\"eca-server\",host=\"eca-ers\",method=\"save\"}[1m]))/sum(rate(feign_Client_seconds_count{application=\"eca-server\",host=\"eca-ers\",method=\"save\"}[1m]))) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(feign_Client_seconds_sum{application=\"ECA-SERVER\",host=\"eca-ers\",method=\"save\"}[1m]))/sum(rate(feign_Client_seconds_count{application=\"ECA-SERVER\",host=\"eca-ers\",method=\"save\"}[1m]))) >= 0 OR on() vector(0)",
           "legendFormat": "\"/api/save\" - AVG",
           "refId": "A"
         },
         {
-          "expr": "(max(feign_Client_seconds_max{application=\"eca-server\",host=\"eca-ers\",method=\"save\"})) >= 0 OR on() vector(0)",
+          "expr": "(max(feign_Client_seconds_max{application=\"ECA-SERVER\",host=\"eca-ers\",method=\"save\"})) >= 0 OR on() vector(0)",
           "legendFormat": "\"/api/save\" - MAX",
           "refId": "B"
         },
         {
-          "expr": "(sum(rate(feign_Client_seconds_sum{application=\"eca-server\",host=\"eca-ers\",method=\"getEvaluationResults\"}[1m]))/sum(rate(feign_Client_seconds_count{application=\"eca-server\",host=\"eca-ers\",method=\"getEvaluationResults\"}[1m]))) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(feign_Client_seconds_sum{application=\"ECA-SERVER\",host=\"eca-ers\",method=\"getEvaluationResults\"}[1m]))/sum(rate(feign_Client_seconds_count{application=\"ECA-SERVER\",host=\"eca-ers\",method=\"getEvaluationResults\"}[1m]))) >= 0 OR on() vector(0)",
           "legendFormat": "\"/api/results\" - AVG",
           "refId": "C"
         },
         {
-          "expr": "(max(feign_Client_seconds_max{application=\"eca-server\",host=\"eca-ers\",method=\"getEvaluationResults\"})) >= 0 OR on() vector(0)",
+          "expr": "(max(feign_Client_seconds_max{application=\"ECA-SERVER\",host=\"eca-ers\",method=\"getEvaluationResults\"})) >= 0 OR on() vector(0)",
           "legendFormat": "\"/api/results\" - MAX",
           "refId": "D"
         },
         {
-          "expr": "(sum(rate(feign_Client_seconds_sum{application=\"eca-server\",host=\"eca-ers\",method=\"getClassifierOptions\"}[1m]))/sum(rate(feign_Client_seconds_count{application=\"eca-server\",host=\"eca-ers\",method=\"getClassifierOptions\"}[1m]))) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(feign_Client_seconds_sum{application=\"ECA-SERVER\",host=\"eca-ers\",method=\"getClassifierOptions\"}[1m]))/sum(rate(feign_Client_seconds_count{application=\"ECA-SERVER\",host=\"eca-ers\",method=\"getClassifierOptions\"}[1m]))) >= 0 OR on() vector(0)",
           "legendFormat": "\"/api/optimal-classifier-options\" - AVG",
           "refId": "E"
         },
         {
-          "expr": "(max(feign_Client_seconds_max{application=\"eca-server\",host=\"eca-ers\",method=\"getClassifierOptions\"})) >= 0 OR on() vector(0)",
+          "expr": "(max(feign_Client_seconds_max{application=\"ECA-SERVER\",host=\"eca-ers\",method=\"getClassifierOptions\"})) >= 0 OR on() vector(0)",
           "legendFormat": "\"/api/optimal-classifier-options\" - MAX",
           "refId": "F"
         }
@@ -369,32 +369,32 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(sum(rate(s3_storage_object_request_seconds_sum{application=\"eca-server\",method=\"uploadObject\"}[1m]))/sum(rate(s3_storage_object_request_seconds_count{application=\"eca-server\",method=\"uploadObject\"}[1m]))) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(s3_storage_object_request_seconds_sum{application=\"ECA-SERVER\",method=\"uploadObject\"}[1m]))/sum(rate(s3_storage_object_request_seconds_count{application=\"ECA-SERVER\",method=\"uploadObject\"}[1m]))) >= 0 OR on() vector(0)",
           "legendFormat": "\"uploadObject\" - AVG",
           "refId": "A"
         },
         {
-          "expr": "(max(s3_storage_object_request_seconds_max{application=\"eca-server\",method=\"uploadObject\"})) >= 0 OR on() vector(0)",
+          "expr": "(max(s3_storage_object_request_seconds_max{application=\"ECA-SERVER\",method=\"uploadObject\"})) >= 0 OR on() vector(0)",
           "legendFormat": "\"uploadObject\" - MAX",
           "refId": "B"
         },
         {
-          "expr": "(sum(rate(s3_storage_object_request_seconds_sum{application=\"eca-server\",method=\"getObject\"}[1m]))/sum(rate(s3_storage_object_request_seconds_count{application=\"eca-server\",method=\"getObject\"}[1m]))) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(s3_storage_object_request_seconds_sum{application=\"ECA-SERVER\",method=\"getObject\"}[1m]))/sum(rate(s3_storage_object_request_seconds_count{application=\"ECA-SERVER\",method=\"getObject\"}[1m]))) >= 0 OR on() vector(0)",
           "legendFormat": "\"getObject\" - AVG",
           "refId": "C"
         },
         {
-          "expr": "(max(s3_storage_object_request_seconds_max{application=\"eca-server\",method=\"getObject\"})) >= 0 OR on() vector(0)",
+          "expr": "(max(s3_storage_object_request_seconds_max{application=\"ECA-SERVER\",method=\"getObject\"})) >= 0 OR on() vector(0)",
           "legendFormat": "\"getObject\" - MAX",
           "refId": "D"
         },
         {
-          "expr": "(sum(rate(s3_storage_object_request_seconds_sum{application=\"eca-server\",method=\"getObjectPresignedProxyUrl\"}[1m]))/sum(rate(s3_storage_object_request_seconds_count{application=\"eca-server\",method=\"getObjectPresignedProxyUrl\"}[1m]))) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(s3_storage_object_request_seconds_sum{application=\"ECA-SERVER\",method=\"getObjectPresignedProxyUrl\"}[1m]))/sum(rate(s3_storage_object_request_seconds_count{application=\"ECA-SERVER\",method=\"getObjectPresignedProxyUrl\"}[1m]))) >= 0 OR on() vector(0)",
           "legendFormat": "\"getObjectPresignedProxyUrl\" - AVG",
           "refId": "E"
         },
         {
-          "expr": "(max(s3_storage_object_request_seconds_max{application=\"eca-server\",method=\"getObjectPresignedProxyUrl\"})) >= 0 OR on() vector(0)",
+          "expr": "(max(s3_storage_object_request_seconds_max{application=\"ECA-SERVER\",method=\"getObjectPresignedProxyUrl\"})) >= 0 OR on() vector(0)",
           "legendFormat": "\"getObjectPresignedProxyUrl\" - MAX",
           "refId": "F"
         }
@@ -482,19 +482,19 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(sum(rate(feign_Client_http_response_code_total{application=\"eca-server\",host=\"eca-ers\",http_status=\"200\",method=\"save\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(feign_Client_http_response_code_total{application=\"ECA-SERVER\",host=\"eca-ers\",http_status=\"200\",method=\"save\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
           "intervalFactor": 2,
           "legendFormat": "/api/save",
           "refId": "A"
         },
         {
-          "expr": "(sum(rate(feign_Client_http_response_code_total{application=\"eca-server\",host=\"eca-ers\",http_status=\"200\",method=\"getEvaluationResults\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(feign_Client_http_response_code_total{application=\"ECA-SERVER\",host=\"eca-ers\",http_status=\"200\",method=\"getEvaluationResults\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
           "intervalFactor": 2,
           "legendFormat": "/api/results",
           "refId": "B"
         },
         {
-          "expr": "(sum(rate(feign_Client_http_response_code_total{application=\"eca-server\",host=\"eca-ers\",http_status=\"200\",method=\"getClassifierOptions\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(feign_Client_http_response_code_total{application=\"ECA-SERVER\",host=\"eca-ers\",http_status=\"200\",method=\"getClassifierOptions\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
           "intervalFactor": 2,
           "legendFormat": "/api/optimal-classifier-options",
           "refId": "C"
@@ -583,12 +583,12 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(sum(rate(s3_storage_object_size_bytes_sum{application=\"eca-server\"}[1m]))/sum(rate(s3_storage_object_size_bytes_count{application=\"eca-server\"}[1m]))) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(s3_storage_object_size_bytes_sum{application=\"ECA-SERVER\"}[1m]))/sum(rate(s3_storage_object_size_bytes_count{application=\"ECA-SERVER\"}[1m]))) >= 0 OR on() vector(0)",
           "legendFormat": "AVG size",
           "refId": "A"
         },
         {
-          "expr": "(max(s3_storage_object_size_bytes_max{application=\"eca-server\"})) >= 0 OR on() vector(0)",
+          "expr": "(max(s3_storage_object_size_bytes_max{application=\"ECA-SERVER\"})) >= 0 OR on() vector(0)",
           "legendFormat": "MAX object size",
           "refId": "B"
         }
@@ -676,7 +676,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(sum(rate(feign_Client_http_response_code_total{status_group=\"5xx\",host=\"eca-ers\",application=\"eca-server\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(feign_Client_http_response_code_total{status_group=\"5xx\",host=\"eca-ers\",application=\"ECA-SERVER\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -766,19 +766,19 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(sum(rate(s3_storage_request_success_total{application=\"eca-server\",method=\"uploadObject\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(s3_storage_request_success_total{application=\"ECA-SERVER\",method=\"uploadObject\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
           "intervalFactor": 2,
           "legendFormat": "uploadObject",
           "refId": "A"
         },
         {
-          "expr": "(sum(rate(s3_storage_request_success_total{application=\"eca-server\",method=\"downloadObject\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(s3_storage_request_success_total{application=\"ECA-SERVER\",method=\"downloadObject\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
           "intervalFactor": 2,
           "legendFormat": "downloadObject",
           "refId": "B"
         },
         {
-          "expr": "(sum(rate(s3_storage_request_success_total{application=\"eca-server\",method=\"getObjectPresignedUrl\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(s3_storage_request_success_total{application=\"ECA-SERVER\",method=\"getObjectPresignedUrl\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
           "intervalFactor": 2,
           "legendFormat": "getObjectPresignedProxyUrl",
           "refId": "C"
@@ -866,19 +866,19 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(sum(rate(feign_Client_http_response_code_total{status_group=\"5xx\",host=\"eca-audit-log\",application=\"eca-server\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(feign_Client_http_response_code_total{status_group=\"5xx\",host=\"eca-audit-log\",application=\"ECA-SERVER\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
           "intervalFactor": 2,
           "legendFormat": "eca-server",
           "refId": "A"
         },
         {
-          "expr": "(sum(rate(feign_Client_http_response_code_total{status_group=\"5xx\",host=\"eca-audit-log\",application=\"eca-oauth\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(feign_Client_http_response_code_total{status_group=\"5xx\",host=\"eca-audit-log\",application=\"ECA-OAUTH\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
           "intervalFactor": 2,
           "legendFormat": "eca-oauth",
           "refId": "B"
         },
         {
-          "expr": "(sum(rate(feign_Client_http_response_code_total{status_group=\"5xx\",host=\"eca-audit-log\",application=\"eca-data-storage\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(feign_Client_http_response_code_total{status_group=\"5xx\",host=\"eca-audit-log\",application=\"ECA-DATA-STORAGE\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
           "intervalFactor": 2,
           "legendFormat": "eca-data-storage",
           "refId": "C"
@@ -966,19 +966,19 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(sum(rate(s3_storage_request_error_total{application=\"eca-server\",method=\"uploadObject\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(s3_storage_request_error_total{application=\"ECA-SERVER\",method=\"uploadObject\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
           "intervalFactor": 2,
           "legendFormat": "uploadObject",
           "refId": "A"
         },
         {
-          "expr": "(sum(rate(s3_storage_request_error_total{application=\"eca-server\",method=\"downloadObject\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(s3_storage_request_error_total{application=\"ECA-SERVER\",method=\"downloadObject\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
           "intervalFactor": 2,
           "legendFormat": "downloadObject",
           "refId": "B"
         },
         {
-          "expr": "(sum(rate(s3_storage_request_error_total{application=\"eca-server\",method=\"getObjectPresignedUrl\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(s3_storage_request_error_total{application=\"ECA-SERVER\",method=\"getObjectPresignedUrl\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
           "intervalFactor": 2,
           "legendFormat": "getObjectPresignedProxyUrl",
           "refId": "C"
@@ -1155,13 +1155,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(sum(rate(feign_Client_http_response_code_total{status_group=\"5xx\",host=\"eca-mail\",application=\"eca-server\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(feign_Client_http_response_code_total{status_group=\"5xx\",host=\"eca-mail\",application=\"ECA-SERVER\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
           "intervalFactor": 2,
           "legendFormat": "eca-server",
           "refId": "A"
         },
         {
-          "expr": "(sum(rate(feign_Client_http_response_code_total{status_group=\"5xx\",host=\"eca-mail\",application=\"eca-oauth\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(feign_Client_http_response_code_total{status_group=\"5xx\",host=\"eca-mail\",application=\"ECA-SERVER\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
           "intervalFactor": 2,
           "legendFormat": "eca-oauth",
           "refId": "B"
@@ -1249,7 +1249,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(sum(rate(feign_Client_http_response_code_total{application=\"eca-server\",host=\"eca-web-push\",http_status=\"200\",method=\"sendPush\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(feign_Client_http_response_code_total{application=\"ECA-SERVER\",host=\"eca-web-push\",http_status=\"200\",method=\"sendPush\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
           "intervalFactor": 2,
           "legendFormat": "eca-server",
           "refId": "A"
@@ -1337,7 +1337,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(sum(rate(feign_Client_http_response_code_total{status_group=\"5xx\",host=\"eca-web-push\",application=\"eca-server\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
+          "expr": "(sum(rate(feign_Client_http_response_code_total{status_group=\"5xx\",host=\"eca-web-push\",application=\"ECA-SERVER\"}[1m]) * 60) / 2) >= 0 OR on() vector(0)",
           "intervalFactor": 2,
           "legendFormat": "eca-server",
           "refId": "A"
@@ -1393,7 +1393,7 @@
     "list": []
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {},
