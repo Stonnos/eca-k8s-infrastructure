@@ -29,12 +29,8 @@ spec:
             - name: alertmanager-config
               mountPath: /etc/alertmanager/alertmanager.yml
               subPath: alertmanager.yml
-            - name: telegram-token
-              mountPath: /etc/alertmanager/bot-token.txt
-              subPath: bot-token.txt
-            - name: email-auth-password
-              mountPath: /etc/alertmanager/email-auth-password.txt
-              subPath: email-auth-password.txt
+            - name: secrets-volume
+              mountPath: /etc/secrets
       volumes:
         - name: alertmanager-config
           configMap:
@@ -42,15 +38,6 @@ spec:
             items:
               - key: alertmanager.yml
                 path: alertmanager.yml
-        - name: telegram-token
-          configMap:
-            name: {{ .Values.appName }}
-            items:
-              - key: bot-token.txt
-                path: bot-token.txt
-        - name: email-auth-password
-          configMap:
-            name: {{ .Values.appName }}
-            items:
-              - key: email-auth-password.txt
-                path: email-auth-password.txt
+        - name: secrets-volume
+          secret:
+            secretName: {{ .Values.alertmanager.secrets.name }}

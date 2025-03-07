@@ -13,8 +13,8 @@ receivers:
         smarthost: 'smtp.gmail.com:25'
         from: 'rbatsw@gmail.com'
         auth_username: 'rbatsw@gmail.com'
-        auth_password_file: '/etc/alertmanager/email-auth-password.txt'
+        auth_password_file: '/etc/secrets/EMAIL_PASSWORD'
     telegram_configs:
-      - bot_token_file: '/etc/alertmanager/bot-token.txt'
+      - bot_token_file: '/etc/secrets/BOT_TOKEN'
         api_url: 'https://api.telegram.org'
         chat_id: 1480287278

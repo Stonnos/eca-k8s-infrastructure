@@ -75,4 +75,7 @@ receivers:
 |*alertmanager.timezone*
 |Asia/Novosibirsk
 |Таймзона контейнера
+|*alertmanager.secrets.name*
+|secrets
+|Название Secret
 |===

@@ -14,3 +14,5 @@ service:
 alertmanager:
   webExternalUrl: http://localhost:9093
   timezone: "Asia/Novosibirsk"
+  secrets:
+    name: secrets
