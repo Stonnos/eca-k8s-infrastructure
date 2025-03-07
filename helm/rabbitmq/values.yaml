@@ -31,3 +31,8 @@ persistenceVolumeClaim:
 
 rabbitmq:
   timezone: "Asia/Novosibirsk"
+  vhost: "/"
+  secrets:
+    name: secrets
+  usernameSecretKey: RABBITMQ_USERNAME
+  passwordSecretKey: RABBITMQ_PASSWORD

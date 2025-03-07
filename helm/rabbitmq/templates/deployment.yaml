@@ -28,15 +28,19 @@ spec:
           env:
             - name: TZ
               value: {{ .Values.rabbitmq.timezone }}
-          volumeMounts:
-            - name: {{ .Values.persistenceVolumeClaim.name }}
-              mountPath: /var/lib/rabbitmq
-            - name: rabbitmq-init
-              mountPath: /etc/rabbitmq/rabbitmq.config
+            - name: RABBITMQ_DEFAULT_VHOST
+              value: {{ .Values.rabbitmq.vhost }}
+            - name: RABBITMQ_DEFAULT_USER
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.rabbitmq.usernameSecretKey }}
+                  name: {{ .Values.rabbitmq.secrets.name }}
+            - name: RABBITMQ_DEFAULT_PASS
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.rabbitmq.passwordSecretKey }}
+                  name: {{ .Values.rabbitmq.secrets.name }}
       volumes:
         - name: {{ .Values.persistenceVolumeClaim.name }}
           persistentVolumeClaim:
             claimName: {{ .Values.persistenceVolumeClaim.name }}
-        - name: rabbitmq-init
-          configMap:
-            name: {{ .Values.appName }}

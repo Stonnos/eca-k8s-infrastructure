@@ -68,6 +68,15 @@
 |*rabbitmq.timezone*
 |Asia/Novosibirsk
 |Таймзона контейнера
+|*rabbitmq.secrets.name*
+|secrets
+|Название Secret
+|*rabbitmq.usernameSecretKey*
+|RABBITMQ_USERNAME
+|Ссылка на переменную пользователя в Secret
+|*rabbitmq.passwordSecretKey*
+|RABBITMQ_PASSWORD
+|Ссылка на переменную пароля в Secret
 |*persistenceVolume.name*
 |pv-rabbitmq
 |Название persistence volume для rabbitmq
