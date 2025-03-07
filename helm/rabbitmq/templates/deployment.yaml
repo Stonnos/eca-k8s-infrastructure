@@ -40,6 +40,9 @@ spec:
                 secretKeyRef:
                   key: {{ .Values.rabbitmq.passwordSecretKey }}
                   name: {{ .Values.rabbitmq.secrets.name }}
+          volumeMounts:
+            - name: {{ .Values.persistenceVolumeClaim.name }}
+              mountPath: /var/lib/rabbitmq
       volumes:
         - name: {{ .Values.persistenceVolumeClaim.name }}
           persistentVolumeClaim:
