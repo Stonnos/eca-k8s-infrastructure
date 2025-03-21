@@ -62,3 +62,19 @@
    uninstall.bat (для Windows)
    
    sh uninstall.sh (для Linux)
+
+
+Описание скриптов развертывания
+----------------------------------------
+
+* В файле helm/secrets.yaml можно задать секреты в формате base64
+
+* install.sh / install.bat - развертывание всего стека для linux/windows
+
+* install-infra.sh / install-infra.bat - развертывание основных инфраструктурных сервисов (postgres, rabbitmq, minio, redis) для linux/windows
+
+* install-apps.sh / install-apps.bat - развертывание основных java микросервисов для linux/windows
+
+* install-monitoring.sh / install-monitoring.bat - развертывание стека мониторинга (prometheus, grafana) для linux/windows
+
+* install-logging.sh / install-logging.bat - развертывание стека логирования (elasticsearch, filebeat, kibana) для linux/windows
