@@ -2,9 +2,12 @@ appName: filebeat
 
 image:
   repository: elastic/filebeat
-  tag: 7.6.1
+  tag: 9.2.0
 
 filebeat:
+  victorialogs:
+    host: victorialogs
+    port: 9428
   elastic:
     host: elasticsearch
     port: 9200

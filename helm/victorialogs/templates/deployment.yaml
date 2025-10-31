@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}
+  labels:
+    app: {{ .Values.appName }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}
+    spec:
+      containers:
+        - name: {{ .Values.appName }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: {{ .Values.container.port }}
+          args:
+            - -storageDataPath=/victoria-logs-data
+          env:
+            - name: TZ
+              value: {{ .Values.victorialogs.timezone }}
+          volumeMounts:
+            - name: {{ .Values.persistenceVolumeClaim.name }}
+              mountPath: /victoria-logs-data
+      volumes:
+        - name: {{ .Values.persistenceVolumeClaim.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistenceVolumeClaim.name }}

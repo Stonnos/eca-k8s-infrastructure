@@ -1,0 +1,29 @@
+appName: victorialogs
+
+image:
+  repository: docker.io/victoriametrics/victoria-logs
+  tag: v1.36.1
+
+container:
+  port: 9428
+
+service:
+  type: LoadBalancer
+  port: 9428
+
+persistenceVolume:
+  name: pv-victorialogs
+  capacity:
+    storage: 5Gi
+  storageClassName: standard
+  hostPath: "/run/desktop/mnt/host/c/eca-service-k8s-volumes/victorialogs"
+
+persistenceVolumeClaim:
+  name: pvc-victorialogs
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: standard
+
+victorialogs:
+  timezone: "Asia/Novosibirsk"
