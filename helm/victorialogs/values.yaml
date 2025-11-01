@@ -16,7 +16,7 @@ persistenceVolume:
   capacity:
     storage: 5Gi
   storageClassName: standard
-  hostPath: "/run/desktop/mnt/host/c/eca-service-k8s-volumes/victorialogs"
+  hostPath: "/run/desktop/mnt/host/c/users/public/eca-service-k8s-volumes/victorialogs"
 
 persistenceVolumeClaim:
   name: pvc-victorialogs
