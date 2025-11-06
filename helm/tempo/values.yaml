@@ -1,0 +1,32 @@
+appName: tempo
+
+image:
+  repository: grafana/tempo
+  tag: 2.9.0
+
+container:
+  port: 3200
+  zipkinPort: 9411
+  grpcPort: 9095
+
+service:
+  type: LoadBalancer
+  port: 3200
+  zipkinPort: 9411
+
+persistenceVolume:
+  name: pv-tempo
+  capacity:
+    storage: 5Gi
+  storageClassName: standard
+  hostPath: "/run/desktop/mnt/host/c/users/public/eca-service-k8s-volumes/tempo"
+
+persistenceVolumeClaim:
+  name: pvc-tempo
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: standard
+
+tempo:
+  timezone: "Asia/Novosibirsk"

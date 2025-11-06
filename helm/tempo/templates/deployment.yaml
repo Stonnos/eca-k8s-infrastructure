@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}
+  labels:
+    app: {{ .Values.appName }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}
+    spec:
+      containers:
+        - name: {{ .Values.appName }}
+          imagePullPolicy: IfNotPresent
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          ## Used to allow volume mount to host path
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 0
+          args:
+            - -config.file=/etc/tempo.yaml
+          ports:
+            - name: tempo-query
+              containerPort: {{ .Values.container.port }}
+            - name: zipkin
+              containerPort: {{ .Values.container.zipkinPort }}
+            - name: grpc
+              containerPort: {{ .Values.container.grpcPort }}
+          env:
+            - name: TZ
+              value: {{ .Values.tempo.timezone }}
+          volumeMounts:
+            - name: {{ .Values.persistenceVolumeClaim.name }}
+              mountPath: /var/tempo
+            - name: tempo-config
+              mountPath: /etc/tempo.yaml
+              subPath: tempo.yaml
+      volumes:
+        - name: {{ .Values.persistenceVolumeClaim.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistenceVolumeClaim.name }}
+        - name: tempo-config
+          configMap:
+            name: {{ .Values.appName }}
+            items:
+              - key: tempo.yaml
+                path: tempo.yaml
