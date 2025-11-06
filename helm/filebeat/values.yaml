@@ -8,6 +8,3 @@ filebeat:
   victorialogs:
     host: victorialogs
     port: 9428
-  elastic:
-    host: elasticsearch
-    port: 9200
