@@ -1,8 +1,8 @@
 appName: postgres-exporter
 
 image:
-  repository: wrouesnel/postgres_exporter
-  tag: v0.8.0
+  repository: quay.io/prometheuscommunity/postgres-exporter
+  tag: v0.18.1
 
 container:
   port: 9187
