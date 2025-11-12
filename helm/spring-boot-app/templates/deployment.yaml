@@ -44,6 +44,9 @@ spec:
               port: {{ .Values.container.actuatorPort }}
             initialDelaySeconds: 15
             periodSeconds: 10
+          resources:
+            limits:
+              memory: {{ .Values.resources.limits.memory }}
           envFrom:
             - configMapRef:
                 name: common-config
