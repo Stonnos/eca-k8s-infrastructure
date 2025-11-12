@@ -136,7 +136,7 @@ groups:
 |prom/prometheus
 |Образ prometheus
 |*image.tag*
-|v2.28.0
+|v3.7.3
 |Версия образа
 |*container.port*
 |9090

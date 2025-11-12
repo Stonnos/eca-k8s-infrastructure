@@ -22,7 +22,7 @@
 |wrouesnel/postgres_exporter
 |Образ postgres-exporter
 |*image.tag*
-|v0.8.0
+|v0.18.1
 |Версия образа
 |*container.port*
 |9187
