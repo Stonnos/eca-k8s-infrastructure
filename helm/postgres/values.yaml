@@ -2,7 +2,7 @@ appName: postgres-db
 
 image:
   repository: postgres
-  tag: 13.9
+  tag: 17.6
 
 container:
   port: 5432

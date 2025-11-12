@@ -28,7 +28,7 @@ create database app;
 |postgres
 |Образ postgres
 |*image.tag*
-|13.9
+|17.6
 |Версия образа
 |*container.port*
 |5432
