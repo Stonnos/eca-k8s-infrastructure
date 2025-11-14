@@ -66,7 +66,7 @@ groups:
           summary: "Sending email messages errors increased in instance {{ $labels.instance }}"
           description: "Sending email messages errors increased in the last minute. Total errors rate ({{ humanize $value }})"
       - alert: EcaErsRequestErrorsIncreased
-        expr: sum(increase(feign_Client_http_response_code_total{status_group="5xx",host="eca-ers"}[5m])) by (instance) >= 4
+        expr: sum(increase(feign_Client_http_response_code_total{status_group="5xx",host="eca-ers"}[1m])) by (instance) >= 4
         for: 0m
         labels:
           severity: warning
@@ -74,7 +74,7 @@ groups:
           summary: "Ers request errors increased in instance {{ $labels.instance }}"
           description: "Ers request errors increased in the last 5 minutes. Total errors rate ({{ humanize $value }})"
       - alert: EcaMailRequestErrorsIncreased
-        expr: sum(increase(feign_Client_http_response_code_total{status_group="5xx",host="eca-mail"}[5m])) by (instance) >= 4
+        expr: sum(core_retry_request_cache_size_total{request_type="emailRequest"}[1m])) by (instance) >= 4
         for: 0m
         labels:
           severity: warning
@@ -82,7 +82,7 @@ groups:
           summary: "Eca mail request errors increased in instance {{ $labels.instance }}"
           description: "Eca mail request errors increased in the last 5 minutes. Total errors rate ({{ humanize $value }})"
       - alert: EcaAuditRequestErrorsIncreased
-        expr: sum(increase(feign_Client_http_response_code_total{status_group="5xx",host="eca-audit-log"}[5m])) by (instance) >= 4
+        expr: sum(increase(core_retry_request_cache_size_total{request_type="auditRequest"}[1m])) by (instance) >= 4
         for: 0m
         labels:
           severity: warning
@@ -90,7 +90,7 @@ groups:
           summary: "Eca audit request errors increased in instance {{ $labels.instance }}"
           description: "Eca audit request errors increased in the last 5 minutes. Total errors rate ({{ humanize $value }})"
       - alert: S3RequestErrorsIncreased
-        expr: sum(increase(s3_storage_request_error_total[5m])) by (instance) >= 4
+        expr: sum(increase(s3_storage_request_error_total[1m])) by (instance) >= 4
         for: 0m
         labels:
           severity: warning
@@ -98,7 +98,7 @@ groups:
           summary: "S3 request errors increased in instance {{ $labels.instance }}"
           description: "S3 request errors increased in the last 5 minutes. Total errors rate ({{ humanize $value }})"
       - alert: EcaWebPushRequestErrorsIncreased
-        expr: sum(increase(feign_Client_http_response_code_total{status_group="5xx",host="eca-web-push"}[5m])) by (instance) >= 4
+        expr: sum(increase(core_retry_request_cache_size_total{request_type="webPushRequest"}[1m])) by (instance) >= 4
         for: 0m
         labels:
           severity: warning
