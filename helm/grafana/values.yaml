@@ -31,3 +31,4 @@ grafana:
     name: secrets
   usernameSecretKey: GRAFANA_USER
   passwordSecretKey: GRAFANA_PASSWORD
+  plugins: "victoriametrics-logs-datasource"

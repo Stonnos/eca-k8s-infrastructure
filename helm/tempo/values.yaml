@@ -1,29 +1,32 @@
-appName: elasticsearch
+appName: tempo
 
 image:
-  repository: elastic/elasticsearch
-  tag: 7.4.2
+  repository: grafana/tempo
+  tag: 2.9.0
 
 container:
-  port: 9200
+  port: 3200
+  zipkinPort: 9411
+  grpcPort: 9095
 
 service:
   type: LoadBalancer
-  port: 9200
+  port: 3200
+  zipkinPort: 9411
 
 persistenceVolume:
-  name: pv-elasticsearch
+  name: pv-tempo
   capacity:
     storage: 5Gi
   storageClassName: standard
-  hostPath: "/run/desktop/mnt/host/c/users/public/eca-service-k8s-volumes/elasticsearch"
+  hostPath: "/run/desktop/mnt/host/c/users/public/eca-service-k8s-volumes/tempo"
 
 persistenceVolumeClaim:
-  name: pvc-elasticsearch
+  name: pvc-tempo
   resources:
     requests:
       storage: 5Gi
   storageClassName: standard
 
-elasticsearch:
+tempo:
   timezone: "Asia/Novosibirsk"

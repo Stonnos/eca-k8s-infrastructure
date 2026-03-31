@@ -3,6 +3,10 @@ appName: eca-web-push
 image:
   repository: eca-web-push
 
+resources:
+  limits:
+    memory: 512Mi
+
 env:
   OPENAPI_BASEPATH: "/eca-web-push"
   AUDIT_ENABLED: "true"
@@ -15,7 +19,7 @@ env:
   EUREKA_INSTANCE_PREFERIPADDRESS: "true"
   EUREKA_CLIENT_REGISTERWITHEUREKA: "true"
   EUREKA_CLIENT_FETCHREGISTRY: "true"
-  JAVA_OPTS: "-Xmx384m"
+  JAVA_OPTS: "-Xmx384m -XX:MaxMetaspaceSize=256m"
 
 secrets:
   SPRING_DATASOURCE_USERNAME: POSTGRES_USER

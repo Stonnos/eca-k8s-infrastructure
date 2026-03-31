@@ -36,6 +36,8 @@ spec:
                   name: {{ .Values.grafana.secrets.name }}
             - name: GF_USERS_ALLOW_SIGN_UP
               value: "false"
+            - name: GF_INSTALL_PLUGINS
+              value: {{ .Values.grafana.plugins }}
             - name: TZ
               value: {{ .Values.grafana.timezone }}
           volumeMounts:

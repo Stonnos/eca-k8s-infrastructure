@@ -3,6 +3,10 @@ appName: eca-data-loader
 image:
   repository: eca-data-loader
 
+resources:
+  limits:
+    memory: 756Mi
+
 env:
   OPENAPI_BASEPATH: "/eca-data-loader"
   SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres-db:5433/data_loader"
@@ -10,7 +14,7 @@ env:
   EUREKA_INSTANCE_PREFERIPADDRESS: "true"
   EUREKA_CLIENT_REGISTERWITHEUREKA: "true"
   EUREKA_CLIENT_FETCHREGISTRY: "true"
-  JAVA_OPTS: "-Xmx384m"
+  JAVA_OPTS: "-Xmx512m -XX:MaxMetaspaceSize=256m"
 
 secrets:
   SPRING_DATASOURCE_USERNAME: POSTGRES_USER

@@ -12,5 +12,9 @@ service:
   port: 8761
   actuatorPort: 8761
 
+resources:
+  limits:
+    memory: 384Mi
+
 env:
-  JAVA_OPTS: "-Xmx256m"
+  JAVA_OPTS: "-Xmx256m -XX:MaxMetaspaceSize=256m"

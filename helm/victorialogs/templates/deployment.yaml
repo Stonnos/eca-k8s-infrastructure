@@ -19,8 +19,15 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: {{ .Values.container.port }}
+          args:
+            - -storageDataPath=/victoria-logs-data
           env:
-            - name: discovery.type
-              value: "single-node"
             - name: TZ
-              value: {{ .Values.elasticsearch.timezone }}
+              value: {{ .Values.victorialogs.timezone }}
+          volumeMounts:
+            - name: {{ .Values.persistenceVolumeClaim.name }}
+              mountPath: /victoria-logs-data
+      volumes:
+        - name: {{ .Values.persistenceVolumeClaim.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistenceVolumeClaim.name }}

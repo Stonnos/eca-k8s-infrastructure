@@ -9,6 +9,9 @@ filebeat.autodiscover:
         - container: ~
 
 output.elasticsearch:
-  hosts: ['${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}']
-  indices:
-    - index: "filebeat-%{[agent.version]}-%{+yyyy.MM.dd}"
+  hosts: ['http://${VICTORIALOGS_HOST}:${VICTORIALOGS_PORT}/insert/elasticsearch/']
+  parameters:
+    _msg_field: "message"
+    _time_field: "@timestamp"
+    _stream_fields: "application_name"
+    ignore_fields: "tags,@version,agent*,ecs.version,log.offset,log.file*,level_value,input.type,host.name,container*,error.message,error.type,kubernetes.labels*,kubernetes.node*,kubernetes.namespace*,kubernetes.replicaset*"

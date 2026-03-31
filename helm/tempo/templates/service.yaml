@@ -7,9 +7,9 @@ spec:
   selector:
     app: {{ .Values.appName }}
   ports:
-    - name: ui
-      port: {{ .Values.service.uiPort }}
-      targetPort: {{ .Values.container.uiPort }}
+    - name: tempo-query
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.container.port }}
     - name: zipkin
       port: {{ .Values.service.zipkinPort }}
       targetPort: {{ .Values.container.zipkinPort }}

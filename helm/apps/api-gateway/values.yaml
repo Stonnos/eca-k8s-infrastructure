@@ -12,8 +12,12 @@ service:
   port: 8080
   actuatorPort: 8030
 
+resources:
+  limits:
+    memory: 512Mi
+
 env:
   EUREKA_INSTANCE_PREFERIPADDRESS: "true"
   EUREKA_CLIENT_REGISTERWITHEUREKA: "true"
   EUREKA_CLIENT_FETCHREGISTRY: "true"
-  JAVA_OPTS: "-Xmx384m"
+  JAVA_OPTS: "-Xmx384m -XX:MaxMetaspaceSize=256m"

@@ -3,6 +3,10 @@ appName: eca-oauth
 image:
   repository: eca-oauth
 
+resources:
+  limits:
+    memory: 756Mi
+
 env:
   OPENAPI_BASEPATH: "/eca-oauth"
   AUDIT_ENABLED: "true"
@@ -18,7 +22,7 @@ env:
   EUREKA_INSTANCE_PREFERIPADDRESS: "true"
   EUREKA_CLIENT_REGISTERWITHEUREKA: "true"
   EUREKA_CLIENT_FETCHREGISTRY: "true"
-  JAVA_OPTS: "-Xmx512m"
+  JAVA_OPTS: "-Xmx512m -XX:MaxMetaspaceSize=256m"
 
 secrets:
   SPRING_DATASOURCE_USERNAME: POSTGRES_USER
