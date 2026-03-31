@@ -73,4 +73,4 @@
 
 * install-monitoring.sh - развертывание стека мониторинга (prometheus, grafana) для linux
 
-* install-logging.sh - развертывание стека логирования (elasticsearch, filebeat, kibana) для linux
+* install-logging.sh - развертывание стека логирования (victorialogs, filebeat) для linux
