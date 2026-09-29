@@ -17,6 +17,7 @@ env:
   SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres-db:5433/eca_notification_service"
   SPRING_JPA_HIBERNATE_DDLAUTO: "validate"
   SPRING_MAIL_USERNAME: "rbatsw@gmail.com"
+  MAIL_SENDER: "rbatsw@gmail.com"
   EUREKA_INSTANCE_PREFERIPADDRESS: "true"
   EUREKA_CLIENT_REGISTERWITHEUREKA: "true"
   EUREKA_CLIENT_FETCHREGISTRY: "true"
